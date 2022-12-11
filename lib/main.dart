@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jaya_office/login.dart';
+import 'package:jaya_office/register.dart';
 import 'package:jaya_office/screen/splash_screen.dart';
 
 void main() {
@@ -14,7 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Project',
-      home: SplashScreen(),
+      home: SplashScreen(), 
+      routes: <String,WidgetBuilder>{
+        '/login':(BuildContext context) => login(),
+        '/register':(BuildContext context) => Dashboard(),
+      },
     );
   }
 }

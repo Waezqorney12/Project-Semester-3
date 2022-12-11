@@ -1,6 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dashboard.dart';
+
+import 'register.dart';
+import 'main.dart';
+
+import 'package:http/http.dart' as http;
 
 class login extends StatefulWidget {
   @override
@@ -8,27 +14,42 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
+  // Future<List> () async{
+  //     final response = await http.post('http://10.0.2.2/mantul/login.php',body: {
+  //       "username" : username.text,
+  //       "password" : pass.text,
+  //     });
+  //     var dataUser = json.decode(response.body);
+
+  //     if (dataUser.length == 0) {
+  //       setState(() {
+  //         msg = "Login Failed";
+  //       });
+  //     }
+  //   }
   String _emailID = '';
   String _password = '';
   String _email = '123@gmail.com';
   String _pass = '123';
 
-  bool _obscureText = true;
+  bool _obscureText = false;
 
+  TextEditingController username = TextEditingController();
+  TextEditingController pass= TextEditingController();
+
+  
   @override
   Widget build(BuildContext context) {
     final _form = GlobalKey<FormState>();
 
+    
     void validationLogin() {
-      if (_form.currentState!.validate()) {
-        _form.currentState!.save();
-        // Paksa
-
+      
         if (_emailID == _email && _password == _pass) {
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => Dashboard()));
         }
-      }
+      
     }
 
     Widget inputEmail() {
@@ -43,9 +64,10 @@ class _Login extends State<login> {
         child: Column(
           children: <Widget>[
             TextFormField(
+              controller: username,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                  prefixIcon: Image.asset("assets/images/User.png"),
+                  prefixIcon: Icon(Icons.email,size: 17),
                   // contentPadding: EdgeInsets.only(left: 16, top: 16),
                   hintText: "Email Addres",
                   hintStyle: TextStyle(fontSize: 10)),
@@ -64,9 +86,9 @@ class _Login extends State<login> {
           borderRadius: BorderRadius.circular(10.0),
           color: Colors.white,
         ),
-        child: Column(
-          children: <Widget>[
+        child: Column(children: <Widget>[
           TextFormField(
+            controller: pass,
             obscureText: _obscureText,
             decoration: InputDecoration(
               filled: true,
@@ -148,6 +170,19 @@ class _Login extends State<login> {
                   const SizedBox(
                     height: 8,
                   ),
+                  
+                  
+
+                  // Align(
+                  //   alignment: Alignment.topLeft,
+                  //   child: Container(
+                  //     child: Column(
+                  //       children: <Widget>[
+                  //         Text(msg, style: GoogleFonts.roboto(fontSize: 10, fontWeight: FontWeight.w200, color: Colors.red)),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
 
                   // FONT FORGOT PASSWORD
                   Align(
@@ -174,25 +209,30 @@ class _Login extends State<login> {
                   Container(
                     width: 300,
                     height: 40,
-                    child: RawMaterialButton(
-                      fillColor: Color.fromARGB(255, 255, 101, 67),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      onPressed: validationLogin,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Log In",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: 13,
-                              fontWeight: FontWeight.bold),
+                    child: GestureDetector(
+                      
+                      child: RawMaterialButton(
+                        
+                        fillColor: Color.fromARGB(255, 255, 101, 67),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        onPressed: (){
+                          Navigator.pushReplacementNamed(context, '/register');
+                        },
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Log In",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ),
                   ),
-
                   const SizedBox(
                     height: 10,
                   ),
