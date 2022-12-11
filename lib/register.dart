@@ -13,21 +13,37 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  Widget regisEmail() {
-    return Container(
-      width: 300.0,
-      height: 48.0,
+  bool _OBS = true;
 
+  TextEditingController usernamaRegis = TextEditingController();
+  TextEditingController passwordRegis = TextEditingController();
+  TextEditingController emailRegis = TextEditingController();
+  TextEditingController nomorRegis = TextEditingController();
+
+  Widget regisPass() {
+    return Container(
+      width: 300,
+      height: 48,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-      ),
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
       child: Column(
         children: <Widget>[
           TextFormField(
+            controller: passwordRegis,
+            obscureText: _OBS,
+            keyboardType: TextInputType.text,
             decoration: InputDecoration(
-              hintText: "sa",
-              
+              hintText: "Password",
+              hintStyle: TextStyle(fontSize: 10),
+              prefixIcon: Icon(Icons.lock, size: 17),
+              suffixIcon: IconButton(
+                icon: Icon(_OBS ? Icons.visibility_off : Icons.visibility),
+                onPressed: () {
+                  setState(() {
+                    _OBS = !_OBS;
+                  });
+                },
+              ),
             ),
           ),
         ],
@@ -35,55 +51,136 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  Widget regisEmail() {
+    return Container(
+      width: 300.0,
+      height: 48.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: emailRegis,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecoration(
+                hintText: "Email Address",
+                hintStyle: TextStyle(fontSize: 10),
+                prefixIcon: Icon(
+                  Icons.email,
+                  size: 17,
+                )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget regisUsername() {
+    return Container(
+      width: 300,
+      height: 48,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: usernamaRegis,
+            keyboardType: TextInputType.text,
+            decoration:
+                InputDecoration(
+                  hintText: 'Username',
+                  hintStyle: TextStyle(fontSize: 10),
+                  prefixIcon: Icon(Icons.person,size: 17,),
+                  ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget regisNomor() {
+    return Container(
+      width: 300,
+      height: 48,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: nomorRegis,
+            keyboardType: TextInputType.phone,
+            decoration:
+                InputDecoration(
+                  hintText: 'Phone Number',
+                  hintStyle: TextStyle(fontSize: 10),
+                  prefixIcon: Icon(Icons.phone,size: 17,),
+                  ),
+          )
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: Color.fromARGB(255, 18, 20, 22),
-        body: Container(
+        body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
               Container(
-                margin: EdgeInsets.only(top: 40),
+                margin: EdgeInsets.only(right: 170),
                 child: Column(
-                  children: [
-                    // FONT REGISTER
-                    Container(
-                      margin: EdgeInsets.only(left: 10),
-                      child: Text(
-                        "Register",
-                        style: GoogleFonts.montserrat(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 22,
-                            color: Colors.white),
-                      ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Register",
+                      style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 22,
+                          color: Colors.white),
                     ),
-                    SizedBox(height: 2),
-                    Container(
-                      margin: EdgeInsets.only(left: 30),
-                      child: Column(
-                        children: const [
-                          Text(
-                            "Please fill to continue",
-                            style: TextStyle(
-                                color: Color.fromARGB(100, 255, 255, 255),
-                                fontSize: 12),
-                          ),
-                        ],
-                      ),
+                    Text(
+                      "Please fill to continue",
+                      style: TextStyle(
+                          color: Color.fromARGB(100, 255, 255, 255),
+                          fontSize: 12),
                     ),
                   ],
                 ),
               ),
 
+              SizedBox(
+                height: 30,
+              ),
+
               //Label Register Email
               regisEmail(),
 
+              SizedBox(height: 20),
 
+              regisPass(),
+
+              SizedBox(
+                height: 20,
+              ),
+
+              regisUsername(),
+              SizedBox(
+                height: 20,
+              ),
+
+              regisNomor(),
+              SizedBox(
+                height: 40,
+              ),
               //Button Register
               Container(
-                margin: EdgeInsets.only(left: 30, right: 30),
                 width: 300,
                 height: 40,
                 child: GestureDetector(
@@ -97,7 +194,7 @@ class _DashboardState extends State<Dashboard> {
                           MaterialPageRoute(builder: (context) => login()));
                     },
                     child: Align(
-                      alignment: Alignment.center,
+                      //alignment: Alignment.center,
                       child: Text(
                         "Register",
                         style: GoogleFonts.montserrat(
@@ -112,24 +209,24 @@ class _DashboardState extends State<Dashboard> {
 
               //FONT LOGIN WITH
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Align(
-                alignment: Alignment.center,
+                //alignment: Alignment.center,
                 child: Text(
                   "or log in with",
                   style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 20,
               ),
 
               //BUTTON LOGIN WITH GOOGLE
               Container(
                 width: 300,
                 height: 40,
-                margin: EdgeInsets.only(left: 30),
+                //margin: EdgeInsets.only(left: 30),
                 child: GestureDetector(
                   child: RawMaterialButton(
                     fillColor: Colors.white,
@@ -163,12 +260,16 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
 
+              SizedBox(
+                height: 20,
+              ),
+
               //FONT DONT HAVE ACCOUNT
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 5),
+                    //margin: EdgeInsets.only(top: 5),
                     child: Text(
                       "Already have Account?",
                       style: GoogleFonts.roboto(
@@ -183,7 +284,7 @@ class _DashboardState extends State<Dashboard> {
 
                   //FONT SIGN IN
                   Container(
-                    margin: EdgeInsets.only(top: 5),
+                    //margin: EdgeInsets.only(top: 5),
                     child: Row(
                       children: [
                         GestureDetector(
@@ -203,6 +304,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ],
               ),
+              const Divider(),
             ],
           ),
         ));
