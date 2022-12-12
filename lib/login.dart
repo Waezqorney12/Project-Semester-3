@@ -35,21 +35,17 @@ class _Login extends State<login> {
   bool _obscureText = false;
 
   TextEditingController username = TextEditingController();
-  TextEditingController pass= TextEditingController();
+  TextEditingController pass = TextEditingController();
 
-  
   @override
   Widget build(BuildContext context) {
     final _form = GlobalKey<FormState>();
 
-    
     void validationLogin() {
-      
-        if (_emailID == _email && _password == _pass) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => Dashboard()));
-        }
-      
+      if (_emailID == _email && _password == _pass) {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Dashboard()));
+      }
     }
 
     Widget inputEmail() {
@@ -67,7 +63,7 @@ class _Login extends State<login> {
               controller: username,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.email,size: 17),
+                  prefixIcon: Icon(Icons.email, size: 17),
                   // contentPadding: EdgeInsets.only(left: 16, top: 16),
                   hintText: "Email Addres",
                   hintStyle: TextStyle(fontSize: 10)),
@@ -124,6 +120,9 @@ class _Login extends State<login> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                height: 50,
+              ),
               Center(
                 child: Image.asset(
                   "assets/images/sally.png",
@@ -131,7 +130,7 @@ class _Login extends State<login> {
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(left: 20),
+                margin: EdgeInsets.only(left: 30),
                 child: Text(
                   "Login",
                   style: GoogleFonts.montserrat(
@@ -142,7 +141,7 @@ class _Login extends State<login> {
               ),
               SizedBox(height: 2),
               Container(
-                margin: EdgeInsets.only(left: 20),
+                margin: EdgeInsets.only(left: 30),
                 child: Column(
                   children: const [
                     Text(
@@ -170,8 +169,6 @@ class _Login extends State<login> {
                   const SizedBox(
                     height: 8,
                   ),
-                  
-                  
 
                   // Align(
                   //   alignment: Alignment.topLeft,
@@ -185,24 +182,31 @@ class _Login extends State<login> {
                   // ),
 
                   // FONT FORGOT PASSWORD
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Container(
-                      margin: EdgeInsets.only(right: 20),
-                      child: Column(
-                        children: [
-                          Text(
-                            "Forgot Password",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 10,
-                                color: Color.fromARGB(255, 255, 158, 128)),
-                          ),
-                        ],
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pushReplacementNamed(context, '/forgot');
+                    },
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: EdgeInsets.only(right: 20),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Forgot Password",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 10,
+                                  color: Color.fromARGB(255, 255, 158, 128)),
+                            ),
+                            
+                          ],
+                          
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
 
                   // BUTTON LOGIN
@@ -210,14 +214,12 @@ class _Login extends State<login> {
                     width: 300,
                     height: 40,
                     child: GestureDetector(
-                      
                       child: RawMaterialButton(
-                        
                         fillColor: Color.fromARGB(255, 255, 101, 67),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        onPressed: (){
+                        onPressed: () {
                           Navigator.pushReplacementNamed(context, '/register');
                         },
                         child: Align(
@@ -234,7 +236,7 @@ class _Login extends State<login> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Text(
                     "or log in with",
@@ -242,7 +244,7 @@ class _Login extends State<login> {
                   ),
 
                   const SizedBox(
-                    height: 15,
+                    height: 20,
                   ),
 
                   Container(
@@ -275,6 +277,10 @@ class _Login extends State<login> {
                         ],
                       ),
                     ),
+                  ),
+
+                  SizedBox(
+                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
