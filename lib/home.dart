@@ -40,7 +40,7 @@ class _HomesState extends State<Homes> {
             });
           } ,
           destinations: [
-          NavigationDestination(icon: Icon(Icons.mail), label: "Mail"),
+          NavigationDestination(icon: Icon(Icons.home), label: "Home"),
           NavigationDestination(icon: Icon(Icons.shopify), label: "Order"),
           NavigationDestination(icon: Icon(Icons.settings), label: "Profile"),
         ]),

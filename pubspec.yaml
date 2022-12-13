@@ -86,7 +86,9 @@ flutter:
   - assets/images/Mail.png
   - assets/images/Exit.png
   - assets/images/Passw.png
-  
+
+  - assets/images/close.png
+  - assets/images/propil.jpg
   
 
   #   - images/a_dot_ham.jpeg
