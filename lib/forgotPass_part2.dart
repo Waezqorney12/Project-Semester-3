@@ -4,14 +4,14 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class forgotPass extends StatefulWidget {
+class forgotPass2 extends StatefulWidget {
   @override
-  State<forgotPass> createState() => _forgotPassState();
+  State<forgotPass2> createState() => _forgotPass2State();
 }
 
-class _forgotPassState extends State<forgotPass> {
+class _forgotPass2State extends State<forgotPass2> {
   TextEditingController _emailReset = TextEditingController();
-
+  var obs = true;
   Widget inputEmailReset() {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
@@ -25,12 +25,21 @@ class _forgotPassState extends State<forgotPass> {
         children: <Widget>[
           TextFormField(
             controller: _emailReset,
-            keyboardType: TextInputType.emailAddress,
+            obscureText: obs,
+            keyboardType: TextInputType.text,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email, size: 17),
                 // contentPadding: EdgeInsets.only(left: 16, top: 16),
-                hintText: "Email Addres",
-                hintStyle: TextStyle(fontSize: 10)),
+                hintText: "Password",
+                hintStyle: TextStyle(fontSize: 10),
+                suffixIcon: IconButton(
+                  icon: Icon(obs ? Icons.visibility_off : Icons.visibility),
+                  onPressed: (){
+                    setState(() {
+                      obs = !obs;
+                    });
+                  },)
+                ),
           ),
         ],
       ),
@@ -48,7 +57,7 @@ class _forgotPassState extends State<forgotPass> {
             borderRadius: BorderRadius.circular(10),
           ),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/forgot2');
+            Navigator.pushReplacementNamed(context, '/login');
           },
           child: Align(
             alignment: Alignment.center,
@@ -70,22 +79,7 @@ class _forgotPassState extends State<forgotPass> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 18, 20, 22),
-      // appBar: AppBar(
-      //   backgroundColor: Color.fromARGB(255, 18, 20, 22),
-      //   elevation: 0,
-      //   actions: [
-      //     Container(
-      //       margin: EdgeInsets.only(right: 270),
-      //       child:
-      //         RawMaterialButton(
-      //           child: Icon(Icons.,size: 20,),
-      //           onPressed: (){
-      //           Navigator.pushReplacementNamed(context, '/login');
-      //         })
 
-      //     )
-      //   ],
-      // ),
       body: Container(
         child: Column(
           children: <Widget>[
@@ -138,7 +132,7 @@ class _forgotPassState extends State<forgotPass> {
                   SizedBox(
                     height: 30,
                   ),
-                  Image.asset("assets/images/Mail.png"),
+                  Image.asset("assets/images/Passw.png"),
                   SizedBox(
                     height: 10,
                   ),

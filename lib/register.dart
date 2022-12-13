@@ -7,12 +7,12 @@ import 'package:jaya_office/login.dart';
 import 'login.dart';
 import 'main.dart';
 
-class Dashboard extends StatefulWidget {
+class regis extends StatefulWidget {
   @override
-  State<Dashboard> createState() => _DashboardState();
+  State<regis> createState() => _regisState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _regisState extends State<regis> {
   bool _OBS = true;
 
   TextEditingController usernamaRegis = TextEditingController();

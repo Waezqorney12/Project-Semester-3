@@ -14,39 +14,28 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
-  // Future<List> () async{
-  //     final response = await http.post('http://10.0.2.2/mantul/login.php',body: {
+
+  // String msg = '';
+  // Future<List> cok() async{
+  //     final response = await http.post(Uri.parse('http://110.138.238.197/jaya_office/login.php'),body: {
   //       "username" : username.text,
-  //       "password" : pass.text,
+  //       "password" : password.text,
   //     });
   //     var dataUser = json.decode(response.body);
 
-  //     if (dataUser.length == 0) {
-  //       setState(() {
-  //         msg = "Login Failed";
-  //       });
-  //     }
+  //     return dataUser;
   //   }
-  String _emailID = '';
-  String _password = '';
-  String _email = '123@gmail.com';
-  String _pass = '123';
 
   bool _obscureText = false;
 
   TextEditingController username = TextEditingController();
-  TextEditingController pass = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final _form = GlobalKey<FormState>();
 
-    void validationLogin() {
-      if (_emailID == _email && _password == _pass) {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Dashboard()));
-      }
-    }
+    
 
     Widget inputEmail() {
       return Container(
@@ -84,7 +73,7 @@ class _Login extends State<login> {
         ),
         child: Column(children: <Widget>[
           TextFormField(
-            controller: pass,
+            controller: password,
             obscureText: _obscureText,
             decoration: InputDecoration(
               filled: true,
@@ -220,7 +209,8 @@ class _Login extends State<login> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/register');
+                          Navigator.pushReplacementNamed(context, '/home');
+                          // cok();
                         },
                         child: Align(
                           alignment: Alignment.center,
@@ -255,7 +245,9 @@ class _Login extends State<login> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      onPressed: validationLogin,
+                      onPressed: (){
+
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -312,7 +304,7 @@ class _Login extends State<login> {
                                   Navigator.of(context)
                                       .pushReplacement(MaterialPageRoute(
                                     builder: (BuildContext context) =>
-                                        Dashboard(),
+                                        regis(),
                                   ));
                                 })
                           ],
