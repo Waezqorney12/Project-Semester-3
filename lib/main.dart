@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jaya_office/Order.dart';
+import 'package:jaya_office/accountEdit.dart';
 import 'package:jaya_office/forgotPass.dart';
 import 'package:jaya_office/forgotPass_part2.dart';
 import 'package:jaya_office/home.dart';
@@ -29,6 +30,8 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => Homes(),
         '/profile':(BuildContext context) => profiles(),
         '/order':(BuildContext context) => orders(),
+        '/editprofile':(BuildContext context) => editprofile(),
+
       },
     );
   }

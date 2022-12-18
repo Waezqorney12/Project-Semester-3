@@ -24,17 +24,20 @@ class profiles extends StatelessWidget {
               height: 50,
             ),
 
-            SizedBox(
-              width: 110,
-              height: 110,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(100),
-                child: Image.asset(
-                  "assets/images/propil.jpg",
+            Stack(
+              children: [
+                SizedBox(
+                  width: 110,
+                  height: 110,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset(
+                      "assets/images/propil.jpg",
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-
             SizedBox(
               height: 20,
             ),
@@ -65,8 +68,8 @@ class profiles extends StatelessWidget {
             ),
 
             GestureDetector(
-              onTap: (){
-                Navigator.pushReplacementNamed(context, '/home');
+              onTap: () {
+                Navigator.pushReplacementNamed(context, '/editprofile');
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -147,7 +150,7 @@ class profiles extends StatelessWidget {
               ),
             ),
 
-                        GestureDetector(
+            GestureDetector(
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
