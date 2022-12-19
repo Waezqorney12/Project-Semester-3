@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class forgotPass extends StatefulWidget {
   @override
@@ -12,6 +13,36 @@ class forgotPass extends StatefulWidget {
 class _forgotPassState extends State<forgotPass> {
   TextEditingController _emailReset = TextEditingController();
 
+  Future Regist() async {
+    var url = Uri.http("192.168.1.10", '/login/register.php', {'q': '{http}'});
+    var response = await http.post(url, body: {
+      "userid" : idRegis.text,
+      
+    });
+    
+    if (response.body.isNotEmpty) {
+      json.decode(response.body);
+      Fluttertoast.showToast(
+        msg: "Register Success",
+        backgroundColor: Colors.orange,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => login(),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: "Invalid register",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
   Widget inputEmailReset() {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),

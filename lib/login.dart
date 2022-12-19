@@ -37,7 +37,7 @@ class _Login extends State<login> {
   Future login() async {
     var url = Uri.http("192.168.1.10", '/login/login.php', {'q': '{http}'});
     var response = await http.post(url, body: {
-      "username": username.text,
+      "email": username.text,
       "password": password.text,
     });
     

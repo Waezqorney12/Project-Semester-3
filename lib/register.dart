@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/login.dart';
 import 'package:http/http.dart' as http;
@@ -14,15 +17,10 @@ class regis extends StatefulWidget {
 
 class _regisState extends State<regis> {
   
-  Future Regist() async{
-    var url = Uri.http("192.168.1.10", '/login/register.php', {'q': '{http}'});
-  var response = await http.post(url,body:{
-    "username":usernamaRegis,
-    
-  });
-  }
+
   //obscure text
   bool _OBS = true;
+  TextEditingController idRegis = TextEditingController();
 
   TextEditingController usernamaRegis = TextEditingController();
   TextEditingController passwordRegis = TextEditingController();
@@ -30,6 +28,40 @@ class _regisState extends State<regis> {
   TextEditingController nomorRegis = TextEditingController();
   TextEditingController alamatRegis = TextEditingController();
 
+  Future Regist() async {
+    var url = Uri.http("192.168.1.10", '/login/register.php', {'q': '{http}'});
+    var response = await http.post(url, body: {
+      "userid" : idRegis.text,
+      "username": usernamaRegis.text,
+      "password": passwordRegis.text,
+      "email": emailRegis.text,
+      "alamat": alamatRegis.text,
+      "telepon": nomorRegis.text,
+    });
+    
+    if (response.body.isNotEmpty) {
+      json.decode(response.body);
+      Fluttertoast.showToast(
+        msg: "Register Success",
+        backgroundColor: Colors.orange,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => login(),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: "Invalid register",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
   Widget regisPass() {
     return Container(
       width: 300,
@@ -98,12 +130,14 @@ class _regisState extends State<regis> {
           TextFormField(
             controller: usernamaRegis,
             keyboardType: TextInputType.text,
-            decoration:
-                InputDecoration(
-                  hintText: 'Username',
-                  hintStyle: TextStyle(fontSize: 10),
-                  prefixIcon: Icon(Icons.person,size: 17,),
-                  ),
+            decoration: InputDecoration(
+              hintText: 'Username',
+              hintStyle: TextStyle(fontSize: 10),
+              prefixIcon: Icon(
+                Icons.person,
+                size: 17,
+              ),
+            ),
           )
         ],
       ),
@@ -121,12 +155,15 @@ class _regisState extends State<regis> {
           TextFormField(
             controller: nomorRegis,
             keyboardType: TextInputType.phone,
-            decoration:
-                InputDecoration(
-                  hintText: 'Phone Number',
-                  hintStyle: TextStyle(fontSize: 10),
-                  prefixIcon: Icon(Icons.phone,size: 17,),
-                  ),
+            
+            decoration: InputDecoration(
+              hintText: 'Phone Number',
+              hintStyle: TextStyle(fontSize: 10),
+              prefixIcon: Icon(
+                Icons.phone,
+                size: 17,
+              ),
+            ),
           )
         ],
       ),
@@ -142,14 +179,41 @@ class _regisState extends State<regis> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            controller: usernamaRegis,
+            controller: alamatRegis,
             keyboardType: TextInputType.text,
-            decoration:
-                InputDecoration(
-                  hintText: 'Username',
-                  hintStyle: TextStyle(fontSize: 10),
-                  prefixIcon: Icon(Icons.person,size: 17,),
-                  ),
+            decoration: InputDecoration(
+              hintText: 'Alamat',
+              hintStyle: TextStyle(fontSize: 10),
+              prefixIcon: Icon(
+                Icons.map,
+                size: 17,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget idRegister() {
+    return Container(
+      width: 300,
+      height: 48,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: idRegis,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              hintText: 'Id',
+              hintStyle: TextStyle(fontSize: 10),
+              prefixIcon: Icon(
+                Icons.person,
+                size: 17,
+              ),
+            ),
           )
         ],
       ),
@@ -194,9 +258,12 @@ class _regisState extends State<regis> {
               ),
 
               //Label Register Email
-              regisUsername(),
+              idRegister(),
               
 
+              SizedBox(height: 20),
+
+              regisUsername(),
               SizedBox(height: 20),
 
               regisPass(),
@@ -210,12 +277,12 @@ class _regisState extends State<regis> {
                 height: 20,
               ),
 
-              regisNomor(),
+              regisAlamat(),
               SizedBox(
                 height: 20,
               ),
 
-              regisAlamat(),
+              regisNomor(),
               SizedBox(
                 height: 40,
               ),
@@ -230,8 +297,9 @@ class _regisState extends State<regis> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => login()));
+                      Regist();
+                      // Navigator.push(context,
+                      //     MaterialPageRoute(builder: (context) => login()));
                     },
                     child: Align(
                       //alignment: Alignment.center,
