@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jaya_office/dashboard.dart';
 
 import 'register.dart';
 import 'main.dart';
@@ -14,7 +16,6 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
-
   // String msg = '';
   // Future<List> cok() async{
   //     final response = await http.post(Uri.parse('http://110.138.238.197/jaya_office/login.php'),body: {
@@ -26,16 +27,46 @@ class _Login extends State<login> {
   //     return dataUser;
   //   }
 
-  bool _obscureText = false;
+  bool _obscureText = true;
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  String msg = '';
+  Future login() async {
+    var url = Uri.http("192.168.1.10", '/login/login.php', {'q': '{http}'});
+    var response = await http.post(url, body: {
+      "username": username.text,
+      "password": password.text,
+    });
+
+    if (response.body.isNotEmpty) {
+      json.decode(response.body);
+      Fluttertoast.showToast(
+        msg: "Login Success",
+        backgroundColor: Colors.orange,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => dashboard(),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: "Username or Password wrong",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final _form = GlobalKey<FormState>();
-
-    
 
     Widget inputEmail() {
       return Container(
@@ -172,7 +203,7 @@ class _Login extends State<login> {
 
                   // FONT FORGOT PASSWORD
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       Navigator.pushReplacementNamed(context, '/forgot');
                     },
                     child: Align(
@@ -187,15 +218,13 @@ class _Login extends State<login> {
                                   fontSize: 10,
                                   color: Color.fromARGB(255, 255, 158, 128)),
                             ),
-                            
                           ],
-                          
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 60,
                   ),
 
                   // BUTTON LOGIN
@@ -209,7 +238,7 @@ class _Login extends State<login> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacementNamed(context, '/home');
+                          login();
                           // cok();
                         },
                         child: Align(
@@ -228,48 +257,46 @@ class _Login extends State<login> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    "or log in with",
-                    style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
-                  ),
+                  // Text(
+                  //   "or log in with",
+                  //   style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
+                  // ),
 
                   const SizedBox(
                     height: 20,
                   ),
 
-                  Container(
-                    width: 300,
-                    height: 40,
-                    child: RawMaterialButton(
-                      fillColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      onPressed: (){
-
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            width: 24,
-                            height: 24,
-                            padding: EdgeInsets.only(right: 5),
-                            child: Image.asset(
-                              "assets/images/google.png",
-                            ),
-                          ),
-                          Text(
-                            "Log In with Google",
-                            style: GoogleFonts.montserrat(
-                                color: Color.fromARGB(255, 113, 109, 109),
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   width: 300,
+                  //   height: 40,
+                  //   child: RawMaterialButton(
+                  //     fillColor: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(10),
+                  //     ),
+                  //     onPressed: () {},
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: <Widget>[
+                  //         Container(
+                  //           width: 24,
+                  //           height: 24,
+                  //           padding: EdgeInsets.only(right: 5),
+                  //           child: Image.asset(
+                  //             "assets/images/google.png",
+                  //           ),
+                  //         ),
+                  //         Text(
+                  //           "Log In with Google",
+                  //           style: GoogleFonts.montserrat(
+                  //               color: Color.fromARGB(255, 113, 109, 109),
+                  //               fontSize: 13,
+                  //               fontWeight: FontWeight.bold),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
 
                   SizedBox(
                     height: 10,
@@ -303,8 +330,7 @@ class _Login extends State<login> {
                                 onTap: () {
                                   Navigator.of(context)
                                       .pushReplacement(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        regis(),
+                                    builder: (BuildContext context) => regis(),
                                   ));
                                 })
                           ],

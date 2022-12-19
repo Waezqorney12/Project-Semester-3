@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => Homes(),
         '/profile':(BuildContext context) => profiles(),
         '/order':(BuildContext context) => orders(),
-        '/editprofile':(BuildContext context) => editprofile(),
+        //'/editprofile':(BuildContext context) => editprofile(),
 
       },
     );
