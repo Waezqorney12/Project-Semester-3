@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/login.dart';
-
+import 'package:http/http.dart' as http;
 import 'login.dart';
 import 'main.dart';
 
@@ -13,12 +13,22 @@ class regis extends StatefulWidget {
 }
 
 class _regisState extends State<regis> {
+  
+  Future Regist() async{
+    var url = Uri.http("192.168.1.10", '/login/register.php', {'q': '{http}'});
+  var response = await http.post(url,body:{
+    "username":usernamaRegis,
+    
+  });
+  }
+  //obscure text
   bool _OBS = true;
 
   TextEditingController usernamaRegis = TextEditingController();
   TextEditingController passwordRegis = TextEditingController();
   TextEditingController emailRegis = TextEditingController();
   TextEditingController nomorRegis = TextEditingController();
+  TextEditingController alamatRegis = TextEditingController();
 
   Widget regisPass() {
     return Container(
@@ -122,6 +132,30 @@ class _regisState extends State<regis> {
       ),
     );
   }
+
+  Widget regisAlamat() {
+    return Container(
+      width: 300,
+      height: 48,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: Column(
+        children: <Widget>[
+          TextFormField(
+            controller: usernamaRegis,
+            keyboardType: TextInputType.text,
+            decoration:
+                InputDecoration(
+                  hintText: 'Username',
+                  hintStyle: TextStyle(fontSize: 10),
+                  prefixIcon: Icon(Icons.person,size: 17,),
+                  ),
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,7 +194,8 @@ class _regisState extends State<regis> {
               ),
 
               //Label Register Email
-              regisEmail(),
+              regisUsername(),
+              
 
               SizedBox(height: 20),
 
@@ -170,12 +205,17 @@ class _regisState extends State<regis> {
                 height: 20,
               ),
 
-              regisUsername(),
+              regisEmail(),
               SizedBox(
                 height: 20,
               ),
 
               regisNomor(),
+              SizedBox(
+                height: 20,
+              ),
+
+              regisAlamat(),
               SizedBox(
                 height: 40,
               ),

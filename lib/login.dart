@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/dashboard.dart';
+import 'package:jaya_office/home.dart';
 
 import 'register.dart';
 import 'main.dart';
@@ -39,6 +40,7 @@ class _Login extends State<login> {
       "username": username.text,
       "password": password.text,
     });
+    
 
     if (response.body.isNotEmpty) {
       json.decode(response.body);
@@ -51,14 +53,14 @@ class _Login extends State<login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => dashboard(),
+          builder: (context) => Homes(),
         ),
       );
     } else {
       Fluttertoast.showToast(
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        msg: "Username or Password wrong",
+        msg: "Invalid login",
         toastLength: Toast.LENGTH_SHORT,
       );
     }
