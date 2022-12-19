@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:jaya_office/forgotPass_part2.dart';
 
 class forgotPass extends StatefulWidget {
   @override
@@ -13,32 +17,27 @@ class forgotPass extends StatefulWidget {
 class _forgotPassState extends State<forgotPass> {
   TextEditingController _emailReset = TextEditingController();
 
-  Future Regist() async {
-    var url = Uri.http("192.168.1.10", '/login/register.php', {'q': '{http}'});
+  Future forgot1() async {
+    var url = Uri.http("192.168.1.10", '/login/verif.php', {'q': '{http}'});
     var response = await http.post(url, body: {
-      "userid" : idRegis.text,
+      "email" : _emailReset.text,
       
     });
     
     if (response.body.isNotEmpty) {
       json.decode(response.body);
-      Fluttertoast.showToast(
-        msg: "Register Success",
-        backgroundColor: Colors.orange,
-        textColor: Colors.white,
-        toastLength: Toast.LENGTH_SHORT,
-      );
+      
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => login(),
+          builder: (context) => forgotPass2(),
         ),
       );
     } else {
       Fluttertoast.showToast(
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        msg: "Invalid register",
+        msg: "Something went wrong...",
         toastLength: Toast.LENGTH_SHORT,
       );
     }
@@ -79,7 +78,8 @@ class _forgotPassState extends State<forgotPass> {
             borderRadius: BorderRadius.circular(10),
           ),
           onPressed: () {
-            Navigator.pushReplacementNamed(context, '/forgot2');
+            forgot1();
+            //Navigator.pushReplacementNamed(context, '/forgot2');
           },
           child: Align(
             alignment: Alignment.center,

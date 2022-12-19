@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class forgotPass2 extends StatefulWidget {
   @override
@@ -10,9 +14,35 @@ class forgotPass2 extends StatefulWidget {
 }
 
 class _forgotPass2State extends State<forgotPass2> {
-  TextEditingController _emailReset = TextEditingController();
+  TextEditingController _passwordReset = TextEditingController();
+  Future forgot1() async {
+    var url = Uri.http("192.168.1.10", '/login/verif.php', {'q': '{http}'});
+    var response = await http.post(url, body: {
+      "password" : _passwordReset.text,
+      
+    });
+    
+    if (response.body.isNotEmpty) {
+      json.decode(response.body);
+      
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => forgotPass2(),
+        ),
+      );
+    } else {
+      Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: "Something went wrong...",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
+  }
+  
   var obs = true;
-  Widget inputEmailReset() {
+  Widget inputPasswordReset() {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
       width: 300.0,
@@ -24,7 +54,7 @@ class _forgotPass2State extends State<forgotPass2> {
       child: Column(
         children: <Widget>[
           TextFormField(
-            controller: _emailReset,
+            controller: _passwordReset,
             obscureText: obs,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
@@ -149,7 +179,7 @@ class _forgotPass2State extends State<forgotPass2> {
                   SizedBox(
                     height: 10,
                   ),
-                  inputEmailReset(),
+                  inputPasswordReset(),
                   SizedBox(
                     height: 40,
                   ),
