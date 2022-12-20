@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:jaya_office/forgotPass_part2.dart';
+import 'package:jaya_office/login.dart';
 
 class forgotPass extends StatefulWidget {
   @override
@@ -19,37 +20,24 @@ class _forgotPassState extends State<forgotPass> {
   TextEditingController _emailReset = TextEditingController();
   TextEditingController _passwordReset = TextEditingController();
 
+  String msg = '';
   Future forgotz() async {
     var url = Uri.http("192.168.1.10", '/login/verif.php', {'q': '{http}'});
     var response = await http.post(url, body: {
-      "email" : _emailReset.text,
-      "password" : _passwordReset.text,
-      
-    });
-    
-    if (response.body.isNotEmpty) {
-      json.decode(response.body);
-      Fluttertoast.showToast(
-        backgroundColor: Colors.orange,
-        textColor: Colors.white,
-        msg: "Reset Password Succes",
-        toastLength: Toast.LENGTH_SHORT,
-      );
+      "email": _emailReset.text,
+      "password": _passwordReset.text,
+    }
+    );
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => forgotPass2(),
+          builder: (context) => login(),
         ),
       );
-    } else {
-      Fluttertoast.showToast(
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        msg: "Something went wrong...",
-        toastLength: Toast.LENGTH_SHORT,
-      );
-    }
+    
   }
+
+  
   Widget inputEmailReset() {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
@@ -75,41 +63,41 @@ class _forgotPassState extends State<forgotPass> {
     );
   }
 
-Widget inputPasswordReset(){
-  return Container(
-    margin: EdgeInsets.only(left: 15, right: 15),
-        width: 300.0,
-        height: 48.0,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
-          color: Colors.white,
-        ),
-        child: Column(children: <Widget>[
-          TextFormField(
-            controller: _passwordReset,
-            obscureText: obseru,
-            decoration: InputDecoration(
-              filled: true,
-              hintText: "Password",
-              hintStyle: TextStyle(fontSize: 10),
-              prefixIcon: const Icon(
-                Icons.lock,
-                size: 17,
-              ),
-              suffixIcon: IconButton(
-                icon: Icon(
-                    obseru ? Icons.visibility_off : Icons.visibility),
-                onPressed: () {
-                  setState(() {
-                    obseru = !obseru;
-                  });
-                },
-              ),
+  Widget inputPasswordReset() {
+    return Container(
+      margin: EdgeInsets.only(left: 15, right: 15),
+      width: 300.0,
+      height: 48.0,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.white,
+      ),
+      child: Column(children: <Widget>[
+        TextFormField(
+          controller: _passwordReset,
+          obscureText: obseru,
+          decoration: InputDecoration(
+            filled: true,
+            hintText: "Password",
+            hintStyle: TextStyle(fontSize: 10),
+            prefixIcon: const Icon(
+              Icons.lock,
+              size: 17,
+            ),
+            suffixIcon: IconButton(
+              icon: Icon(obseru ? Icons.visibility_off : Icons.visibility),
+              onPressed: () {
+                setState(() {
+                  obseru = !obseru;
+                });
+              },
             ),
           ),
-        ]),
-  );
-}
+        ),
+      ]),
+    );
+  }
+
   Widget ButtonContinue() {
     return Container(
       width: 300,
@@ -122,6 +110,7 @@ Widget inputPasswordReset(){
           ),
           onPressed: () {
             forgotz();
+            
             //Navigator.pushReplacementNamed(context, '/forgot2');
           },
           child: Align(
@@ -216,16 +205,19 @@ Widget inputPasswordReset(){
                   SizedBox(
                     height: 10,
                   ),
-
                   Container(
-                    margin: EdgeInsets.only(left: 50),
-                    child: Row(
-                      children: [
-                        Text("Email",style: GoogleFonts.roboto(fontSize: 12,color: Colors.white,fontWeight: FontWeight.w300),),
-                      ],
-                    )
-                  ),
-
+                      margin: EdgeInsets.only(left: 50),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Email",
+                            style: GoogleFonts.roboto(
+                                fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w300),
+                          ),
+                        ],
+                      )),
                   SizedBox(
                     height: 10,
                   ),
