@@ -15,18 +15,26 @@ class forgotPass extends StatefulWidget {
 }
 
 class _forgotPassState extends State<forgotPass> {
+  var obseru = true;
   TextEditingController _emailReset = TextEditingController();
+  TextEditingController _passwordReset = TextEditingController();
 
-  Future forgot1() async {
+  Future forgotz() async {
     var url = Uri.http("192.168.1.10", '/login/verif.php', {'q': '{http}'});
     var response = await http.post(url, body: {
       "email" : _emailReset.text,
+      "password" : _passwordReset.text,
       
     });
     
     if (response.body.isNotEmpty) {
       json.decode(response.body);
-      
+      Fluttertoast.showToast(
+        backgroundColor: Colors.orange,
+        textColor: Colors.white,
+        msg: "Reset Password Succes",
+        toastLength: Toast.LENGTH_SHORT,
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -67,6 +75,41 @@ class _forgotPassState extends State<forgotPass> {
     );
   }
 
+Widget inputPasswordReset(){
+  return Container(
+    margin: EdgeInsets.only(left: 15, right: 15),
+        width: 300.0,
+        height: 48.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+        ),
+        child: Column(children: <Widget>[
+          TextFormField(
+            controller: _passwordReset,
+            obscureText: obseru,
+            decoration: InputDecoration(
+              filled: true,
+              hintText: "Password",
+              hintStyle: TextStyle(fontSize: 10),
+              prefixIcon: const Icon(
+                Icons.lock,
+                size: 17,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                    obseru ? Icons.visibility_off : Icons.visibility),
+                onPressed: () {
+                  setState(() {
+                    obseru = !obseru;
+                  });
+                },
+              ),
+            ),
+          ),
+        ]),
+  );
+}
   Widget ButtonContinue() {
     return Container(
       width: 300,
@@ -78,7 +121,7 @@ class _forgotPassState extends State<forgotPass> {
             borderRadius: BorderRadius.circular(10),
           ),
           onPressed: () {
-            forgot1();
+            forgotz();
             //Navigator.pushReplacementNamed(context, '/forgot2');
           },
           child: Align(
@@ -187,6 +230,10 @@ class _forgotPassState extends State<forgotPass> {
                     height: 10,
                   ),
                   inputEmailReset(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  inputPasswordReset(),
                   SizedBox(
                     height: 40,
                   ),
