@@ -69,7 +69,7 @@ class profiles extends StatelessWidget {
 
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/editprofile');
+                // Navigator.pushReplacementNamed(context, '/editprofile');
               },
               child: Container(
                 decoration: BoxDecoration(

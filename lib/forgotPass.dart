@@ -19,25 +19,69 @@ class _forgotPassState extends State<forgotPass> {
   var obseru = true;
   TextEditingController _emailReset = TextEditingController();
   TextEditingController _passwordReset = TextEditingController();
+  TextEditingController _usernamaReset = TextEditingController();
 
   String msg = '';
   Future forgotz() async {
     var url = Uri.http("192.168.1.10", '/login/verif.php', {'q': '{http}'});
     var response = await http.post(url, body: {
+      // "username" : _usernamaReset.text,
       "email": _emailReset.text,
       "password": _passwordReset.text,
     }
     );
+      
+      
+    // var data = jsonDecode(response.body);
+    if (response.body.isNotEmpty) {
+      jsonDecode(response.body);
+      Fluttertoast.showToast(
+        backgroundColor: Colors.orange,
+        textColor: Colors.white,
+        msg: "Success",
+        toastLength: Toast.LENGTH_SHORT,
+      );
       Navigator.push(
         context,
         MaterialPageRoute(
           builder: (context) => login(),
         ),
       );
-    
+    }else{
+      Fluttertoast.showToast(
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        msg: "Invalid Email",
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    }
   }
 
-  
+  // Widget inputUsernama() {
+  //   return Container(
+  //     margin: EdgeInsets.only(left: 15, right: 15),
+  //     width: 300.0,
+  //     height: 48.0,
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(10.0),
+  //       color: Colors.white,
+  //     ),
+  //     child: Column(
+  //       children: <Widget>[
+  //         TextFormField(
+  //           controller: _usernamaReset,
+  //           keyboardType: TextInputType.text,
+  //           decoration: InputDecoration(
+  //               prefixIcon: Icon(Icons.person, size: 17),
+  //               // contentPadding: EdgeInsets.only(left: 16, top: 16),
+  //               hintText: "Username",
+  //               hintStyle: TextStyle(fontSize: 10)),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
   Widget inputEmailReset() {
     return Container(
       margin: EdgeInsets.only(left: 15, right: 15),
@@ -220,6 +264,10 @@ class _forgotPassState extends State<forgotPass> {
                       )),
                   SizedBox(
                     height: 10,
+                  ),
+                  // inputUsernama(),
+                  SizedBox(
+                    height: 20,
                   ),
                   inputEmailReset(),
                   SizedBox(

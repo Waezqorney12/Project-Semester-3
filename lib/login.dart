@@ -17,16 +17,6 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
-  // String msg = '';
-  // Future<List> cok() async{
-  //     final response = await http.post(Uri.parse('http://110.138.238.197/jaya_office/login.php'),body: {
-  //       "username" : username.text,
-  //       "password" : password.text,
-  //     });
-  //     var dataUser = json.decode(response.body);
-
-  //     return dataUser;
-  //   }
 
   bool _obscureText = true;
 
@@ -241,7 +231,7 @@ class _Login extends State<login> {
                         ),
                         onPressed: () {
                           login();
-                          // cok();
+                          
                         },
                         child: Align(
                           alignment: Alignment.center,
