@@ -64,30 +64,26 @@ class _SplashScreen extends State<SplashScreen> {
             
             // Bubble Kiri
             Positioned(
-              top: 480,
+              top: 650,
               left: 0,
               child: Image.asset("assets/images/Ellipse5.png"),
             ),
             Positioned(
-              top: 430,
+              top: 600,
               left: 40,
               child: Image.asset("assets/images/Ellipse6.png"),
             ),
             Positioned(
-              top: 400,
+              top: 570,
               left: 0,
               child: Image.asset("assets/images/Ellipse12.png"),
             ),
             Positioned(
-              top: 470,
+              top: 640,
               left: 30,
               child: Image.asset("assets/images/Ellipse13.png"),
             ),
-            Positioned(
-              top: 200,
-              bottom: 0,
-              child: Image.asset("assets/images/jaya.png"),
-            ),
+            
           ],
         ),
       ),

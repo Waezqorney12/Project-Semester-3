@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jaya_office/dashboard.dart';
+import 'package:jaya_office/home/dashboard.dart';
 import 'package:jaya_office/home.dart';
 
 import 'register.dart';
 import 'main.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:email_validator/email_validator.dart';
 
 class login extends StatefulWidget {
   @override
@@ -17,26 +18,60 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
-
   bool _obscureText = true;
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-  
-  var token;
-  String msg = '';
-  save(String token){
-    final prefs;
-  }
+
+  // void _login() {
+  //   var email = username.text.trim();
+  //   var pass = password.text.trim();
+
+  //   if (email.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input ur email",
+  //       textColor: Colors.white,
+  //     );
+  //   } else if (pass.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input ur password",
+  //       textColor: Colors.white,
+  //     );
+  //   }
+  // }
+
   Future login() async {
     var url = Uri.http("192.168.1.10", '/login/login.php', {'q': '{http}'});
     var response = await http.post(url, body: {
       "email": username.text,
       "password": password.text,
     });
-    
 
-    if (response.body.isNotEmpty) {
+    var email = username.text.trim();
+    var pass = password.text.trim();
+
+    if (email.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Input ur email",
+        textColor: Colors.white,
+        backgroundColor: Colors.red,
+      );
+    } else if (!EmailValidator.validate(email, true)) {
+      setState(() {
+        Fluttertoast.showToast(
+          msg: "Invalid Format Email",
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          toastLength: Toast.LENGTH_SHORT,
+        );
+      });
+    } else if (pass.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Input ur password",
+        textColor: Colors.white,
+        backgroundColor: Colors.red,
+      );
+    } else if (response.body.isNotEmpty) {
       json.decode(response.body);
       Fluttertoast.showToast(
         msg: "Login Success",
@@ -220,7 +255,7 @@ class _Login extends State<login> {
                     ),
                   ),
                   const SizedBox(
-                    height: 60,
+                    height: 50,
                   ),
 
                   // BUTTON LOGIN
@@ -234,8 +269,8 @@ class _Login extends State<login> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         onPressed: () {
+                          //_login();
                           login();
-                          
                         },
                         child: Align(
                           alignment: Alignment.center,
@@ -250,17 +285,11 @@ class _Login extends State<login> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+
                   // Text(
                   //   "or log in with",
                   //   style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
                   // ),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
 
                   // Container(
                   //   width: 300,
