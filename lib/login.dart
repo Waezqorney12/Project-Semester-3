@@ -22,8 +22,12 @@ class _Login extends State<login> {
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
-
+  
+  var token;
   String msg = '';
+  save(String token){
+    final prefs;
+  }
   Future login() async {
     var url = Uri.http("192.168.1.10", '/login/login.php', {'q': '{http}'});
     var response = await http.post(url, body: {
