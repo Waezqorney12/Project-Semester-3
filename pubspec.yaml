@@ -46,7 +46,7 @@ dependencies:
   image_picker: ^0.8.6
   email_validator: ^2.0.1
   get: ^4.6.5
-
+  dots_indicator: ^2.1.0
   
 dev_dependencies:
   flutter_test:
@@ -95,7 +95,10 @@ flutter:
   - assets/images/close.png
   - assets/images/propil.jpg
   - assets/images/profile.png
-
+  
+  - assets/images/pulpen1.jpg
+  - assets/images/pulpen2.png
+  - assets/images/pulpen3.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

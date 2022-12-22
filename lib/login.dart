@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jaya_office/home/dashboard.dart';
+import 'package:jaya_office/home/main_dashboard.dart';
 import 'package:jaya_office/home.dart';
 
 import 'register.dart';
