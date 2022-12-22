@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:jaya_office/Order.dart';
-import 'package:jaya_office/home/main_dashboard.dart';
+import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/profile.dart';
 
 class Homes extends StatefulWidget {

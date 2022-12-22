@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jaya_office/home/item_dashboard.dart';
+import 'package:jaya_office/pages/home/item_dashboard.dart';
 
 class dashboard extends StatefulWidget {
   @override
@@ -12,6 +12,7 @@ class dashboard extends StatefulWidget {
 class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
+    print("current height is " + MediaQuery.of(context).size.width.toString());
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 18, 20, 22),
       body: Column(
@@ -19,34 +20,46 @@ class _dashboardState extends State<dashboard> {
           Container(
             child: Container(
               margin: EdgeInsets.only(top: 45, bottom: 15),
-              padding: EdgeInsets.only(left: 20,right: 20),
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
                   Column(
                     children: [
-                      Text("Jember",style: GoogleFonts.montserrat(color: Colors.white, fontWeight: FontWeight.bold),),
-                      Text("Lokasi",style: GoogleFonts.montserrat(color: Colors.white,fontSize: 12),),
+                      Text(
+                        "Jember",
+                        style: GoogleFonts.montserrat(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        "Lokasi",
+                        style: GoogleFonts.montserrat(
+                            color: Colors.white, fontSize: 12),
+                      ),
                     ],
                   ),
                   Container(
                     width: 45,
                     height: 45,
-                    child: Icon(Icons.search,),
+                    child: Icon(
+                      Icons.search,
+                    ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15)
-                    ),),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
                 ],
               ),
             ),
           ),
-          ItemPageBody(),
-        ],
-      ),
+          Expanded(
+              child: SingleChildScrollView(
+                child: ItemPageBody(),
+              ),
+            ),
+          ],
+        ),
 
-      
       //  SingleChildScrollView(
       //   child: Container(
       //     child: Column(
@@ -136,10 +149,7 @@ class _dashboardState extends State<dashboard> {
       //             ],
       //           ),
       //         ),
-              
 
-
-              
       //       ],
       //     ),
       //   ),

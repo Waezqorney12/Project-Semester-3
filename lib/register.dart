@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:jaya_office/model/signup_model_body.dart';
+import 'package:jaya_office/palet/dimension.dart';
 import 'login.dart';
 import 'main.dart';
 
@@ -307,7 +308,7 @@ class _regisState extends State<regis> {
           child: Column(
             children: <Widget>[
               SizedBox(
-                height: 20,
+                height: Dimensions.height20,
               ),
               Container(
                 margin: EdgeInsets.only(right: 170),
@@ -332,36 +333,36 @@ class _regisState extends State<regis> {
               ),
 
               SizedBox(
-                height: 30,
+                height: Dimensions.height30,
               ),
 
               //Label Register Email
               idRegister(),
 
-              SizedBox(height: 20),
+              SizedBox(height: Dimensions.height20),
 
               regisUsername(),
-              SizedBox(height: 20),
+              SizedBox(height: Dimensions.height20),
 
               regisPass(),
 
               SizedBox(
-                height: 20,
+                height: Dimensions.height20,
               ),
 
               regisEmail(),
               SizedBox(
-                height: 20,
+                height: Dimensions.height20,
               ),
 
               regisAlamat(),
               SizedBox(
-                height: 20,
+                height: Dimensions.height20,
               ),
 
               regisNomor(),
               SizedBox(
-                height: 40,
+                height: Dimensions.height40,
               ),
               //Button Register
               Container(
@@ -395,7 +396,7 @@ class _regisState extends State<regis> {
 
               //FONT LOGIN WITH
               SizedBox(
-                height: 15,
+                height: Dimensions.height15,
               ),
               // Align(
               //   //alignment: Alignment.center,
@@ -461,7 +462,7 @@ class _regisState extends State<regis> {
                     ),
                   ),
                   SizedBox(
-                    width: 5,
+                    width: Dimensions.height5,
                   ),
 
                   //FONT SIGN IN

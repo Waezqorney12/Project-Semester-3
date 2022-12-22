@@ -99,6 +99,8 @@ flutter:
   - assets/images/pulpen1.jpg
   - assets/images/pulpen2.png
   - assets/images/pulpen3.png
+
+  - assets/images/penghapuss.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

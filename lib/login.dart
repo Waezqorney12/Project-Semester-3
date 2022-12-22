@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jaya_office/home/main_dashboard.dart';
+import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/home.dart';
+import 'package:jaya_office/palet/dimension.dart';
 
 import 'register.dart';
 import 'main.dart';
@@ -172,7 +173,7 @@ class _Login extends State<login> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-                height: 50,
+                height: Dimensions.height50,
               ),
               Center(
                 child: Image.asset(
@@ -204,21 +205,21 @@ class _Login extends State<login> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: Dimensions.height15,
               ),
               Column(
                 children: <Widget>[
                   // BOX EMAIL
                   inputEmail(),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: Dimensions.height20,
                   ),
 
                   // BOX PASSWORD
                   inputPass(),
-                  const SizedBox(
-                    height: 8,
+                  SizedBox(
+                    height: Dimensions.height10,
                   ),
 
                   // Align(
@@ -254,8 +255,8 @@ class _Login extends State<login> {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 50,
+                  SizedBox(
+                    height: Dimensions.height50,
                   ),
 
                   // BUTTON LOGIN
@@ -324,7 +325,7 @@ class _Login extends State<login> {
                   // ),
 
                   SizedBox(
-                    height: 10,
+                    height: Dimensions.height10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -340,7 +341,7 @@ class _Login extends State<login> {
                         ),
                       ),
                       SizedBox(
-                        width: 5,
+                        width: Dimensions.height5,
                       ),
                       Container(
                         margin: EdgeInsets.only(top: 5),

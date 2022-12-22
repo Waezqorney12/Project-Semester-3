@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:jaya_office/forgotPass_part2.dart';
 import 'package:jaya_office/login.dart';
+import 'package:jaya_office/palet/dimension.dart';
 
 class forgotPass extends StatefulWidget {
   @override
@@ -197,7 +198,7 @@ class _forgotPassState extends State<forgotPass> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 40,
+              height: Dimensions.height40,
             ),
             // Font Exit
             Container(
@@ -215,7 +216,7 @@ class _forgotPassState extends State<forgotPass> {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: Dimensions.height20,
             ),
             Container(
               child: Column(
@@ -243,11 +244,11 @@ class _forgotPassState extends State<forgotPass> {
                     ),
                   ),
                   SizedBox(
-                    height: 30,
+                    height: Dimensions.height30,
                   ),
                   Image.asset("assets/images/Mail.png"),
                   SizedBox(
-                    height: 10,
+                    height: Dimensions.height10,
                   ),
                   Container(
                       margin: EdgeInsets.only(left: 50),
@@ -263,19 +264,19 @@ class _forgotPassState extends State<forgotPass> {
                         ],
                       )),
                   SizedBox(
-                    height: 10,
+                    height: Dimensions.height10,
                   ),
                   // inputUsernama(),
                   SizedBox(
-                    height: 20,
+                    height: Dimensions.height20,
                   ),
                   inputEmailReset(),
                   SizedBox(
-                    height: 20,
+                    height: Dimensions.height20,
                   ),
                   inputPasswordReset(),
                   SizedBox(
-                    height: 40,
+                    height: Dimensions.height40,
                   ),
                   ButtonContinue(),
                 ],
