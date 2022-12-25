@@ -12,7 +12,7 @@ class dashboard extends StatefulWidget {
 class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
-    print("current height is " + MediaQuery.of(context).size.width.toString());
+    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 18, 20, 22),
       body: Column(

@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/home.dart';
-import 'package:jaya_office/palet/dimension.dart';
+import 'package:jaya_office/palet%20ukuran/dimension.dart';
 
 import 'register.dart';
 import 'main.dart';

@@ -7,12 +7,17 @@ import 'package:jaya_office/forgotPass_part2.dart';
 import 'package:jaya_office/home.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/login.dart';
+import 'package:jaya_office/pages/item/ItemPageDetail.dart';
+import 'package:jaya_office/pages/item/bestItem.dart';
 import 'package:jaya_office/profile.dart';
 // import 'package:jaya_office/profile.dart';
 import 'package:jaya_office/register.dart';
 import 'package:jaya_office/screen/splash_screen.dart';
+import 'helper/dependecies.dart' as dep;
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dep.init;
   runApp(MyApp());
 }
 
@@ -23,7 +28,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Project',
-      home: dashboard(),
+      home: bestItem(),
       //SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => login(),

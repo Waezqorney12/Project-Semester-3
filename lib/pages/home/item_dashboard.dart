@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jaya_office/palet/dimension.dart';
+import 'package:jaya_office/palet%20ukuran/dimension.dart';
 
 class ItemPageBody extends StatefulWidget {
   const ItemPageBody({super.key});
@@ -94,8 +94,8 @@ class _ItemPageBodyState extends State<ItemPageBody> {
                   child: Row(
                     children: [
                       Container(
-                        height: 120,
-                        width: 120,
+                        height: Dimensions.ListImage,
+                        width: Dimensions.ListImage,
                         decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius15),

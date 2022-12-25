@@ -3,19 +3,20 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:jaya_office/palet/dimension.dart';
+import 'package:jaya_office/palet%20ukuran/dimension.dart';
 
 class IconApp extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;
   final Color iconColor;
   final double size;
-  
+  final double iconSize;
   const IconApp({Key? key,
   required this.icon,
-  this.backgroundColor = const Color(0xFFfcf4e4),
+  this.backgroundColor = Colors.white,
   this.iconColor = const Color(0xFF756d54),
-  this.size = 40
+  this.size = 40,
+  this.iconSize = 16,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -24,11 +25,12 @@ class IconApp extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(size/2),
+        color: backgroundColor
       ),
       child: Icon(
         icon,
         color: iconColor,
-        size: Dimensions.icon16,
+        size: iconSize,
         ),
     );
   }

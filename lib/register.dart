@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/login.dart';
 import 'package:http/http.dart' as http;
 import 'package:jaya_office/model/signup_model_body.dart';
-import 'package:jaya_office/palet/dimension.dart';
+import 'package:jaya_office/palet%20ukuran/dimension.dart';
 import 'login.dart';
 import 'main.dart';
 
