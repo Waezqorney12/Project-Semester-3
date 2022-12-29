@@ -6,6 +6,6 @@ class BestItemRepo extends GetxService{
   BestItemRepo({required this.apiClient});
 
   Future<Response> getBestItemList() async{
-    return await apiClient.getData("http");
+    return await apiClient.getData("http://192.168.1.10/login/product.php");
   }
 }

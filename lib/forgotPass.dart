@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'package:jaya_office/forgotPass_part2.dart';
+
 import 'package:jaya_office/login.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
 

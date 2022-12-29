@@ -24,23 +24,6 @@ class _Login extends State<login> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  // void _login() {
-  //   var email = username.text.trim();
-  //   var pass = password.text.trim();
-
-  //   if (email.isEmpty) {
-  //     Fluttertoast.showToast(
-  //       msg: "Input ur email",
-  //       textColor: Colors.white,
-  //     );
-  //   } else if (pass.isEmpty) {
-  //     Fluttertoast.showToast(
-  //       msg: "Input ur password",
-  //       textColor: Colors.white,
-  //     );
-  //   }
-  // }
-
   Future login() async {
     var url = Uri.http("192.168.1.10", '/login/login.php', {'q': '{http}'});
     var response = await http.post(url, body: {
@@ -287,42 +270,7 @@ class _Login extends State<login> {
                     ),
                   ),
 
-                  // Text(
-                  //   "or log in with",
-                  //   style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
-                  // ),
 
-                  // Container(
-                  //   width: 300,
-                  //   height: 40,
-                  //   child: RawMaterialButton(
-                  //     fillColor: Colors.white,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     onPressed: () {},
-                  //     child: Row(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: <Widget>[
-                  //         Container(
-                  //           width: 24,
-                  //           height: 24,
-                  //           padding: EdgeInsets.only(right: 5),
-                  //           child: Image.asset(
-                  //             "assets/images/google.png",
-                  //           ),
-                  //         ),
-                  //         Text(
-                  //           "Log In with Google",
-                  //           style: GoogleFonts.montserrat(
-                  //               color: Color.fromARGB(255, 113, 109, 109),
-                  //               fontSize: 13,
-                  //               fontWeight: FontWeight.bold),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
 
                   SizedBox(
                     height: Dimensions.height10,

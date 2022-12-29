@@ -1,19 +1,19 @@
 import 'package:get/get.dart';
 import 'package:jaya_office/data/repository/best_item_repo.dart';
+import 'package:jaya_office/model/ItemProduct.dart';
 
-class BestItemController extends GetxController{
+class BestItemController extends GetxController {
   final BestItemRepo bestItemRepo;
   BestItemController({required this.bestItemRepo});
   List<dynamic> _bestItemList = [];
-  List<dynamic> get bestItemList => _bestItemList; 
-  Future<void> getBestItemList() async{
+  List<dynamic> get bestItemList => _bestItemList;
+
+  Future<void> getBestItemList() async {
     Response response = await bestItemRepo.getBestItemList();
     if (response.statusCode == 200) {
       _bestItemList = [];
-      //_bestItemList.addAll();
+      _bestItemList.add(ProductModel.fromJson(response.body));
       update();
-    } else {
-      
-    }
+    } else {}
   }
 }

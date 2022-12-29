@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:jaya_office/Order.dart';
 import 'package:jaya_office/accountEdit.dart';
+import 'package:jaya_office/data/controller/BestItemController.dart';
 import 'package:jaya_office/forgotPass.dart';
-import 'package:jaya_office/forgotPass_part2.dart';
+
 import 'package:jaya_office/home.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/login.dart';
@@ -25,10 +27,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.find<BestItemController>().getBestItemList();
+    
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Project',
-      home: bestItem(),
+      home: dashboard(),
       //SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => login(),
