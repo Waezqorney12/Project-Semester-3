@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jaya_office/pages/home/item_dashboard.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/home.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
@@ -59,7 +60,8 @@ class _Login extends State<login> {
         toastLength: Toast.LENGTH_SHORT,
       );
     } else
-    if(datauser[0]['userid'] == true){
+    if(response.body.isNotEmpty){
+      datauser;
       Fluttertoast.showToast(
         msg: "Login Succes",
         backgroundColor: Colors.orange,
@@ -69,7 +71,7 @@ class _Login extends State<login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => regis(),
+          builder: (context) => dashboard(),
         ),
       );
     }

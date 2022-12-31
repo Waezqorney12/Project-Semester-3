@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/pages/home/item_dashboard.dart';
 import 'package:http/http.dart' as http;
+import 'package:jaya_office/pages/home/testo.dart';
 
 class dashboard extends StatefulWidget {
   @override
@@ -57,9 +58,9 @@ class _dashboardState extends State<dashboard> {
             ),
           ),
           Expanded(
-            
-              child: ItemPageBody(),
-            
+            child: SingleChildScrollView(
+              child: test(),
+            ),
           ),
         ],
       ),
