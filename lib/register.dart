@@ -29,7 +29,94 @@ class _regisState extends State<regis> {
   TextEditingController nomorRegis = TextEditingController();
   TextEditingController alamatRegis = TextEditingController();
 
-  void _registar() {
+  // void _registar() {
+  //   var id = idRegis.text.trim();
+  //   var username = usernamaRegis.text.trim();
+  //   var password = passwordRegis.text.trim();
+  //   var email = emailRegis.text.trim();
+  //   var alamat = alamatRegis.text.trim();
+  //   var nomor = nomorRegis.text.trim();
+
+  //   if (id.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input ur ID",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   } else if (username.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input ur username",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   } else if (password.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input ur Password",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   } else if (email.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input ur email",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   } else if (!EmailValidator.validate(email, true)) {
+  //     setState(() {
+  //       Fluttertoast.showToast(
+  //         msg: "Invalid Format Email",
+  //         backgroundColor: Colors.red,
+  //         textColor: Colors.white,
+  //         toastLength: Toast.LENGTH_SHORT,
+  //       );
+  //     });
+  //   } else if (alamat.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input your address",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   } else if (nomor.isEmpty) {
+  //     Fluttertoast.showToast(
+  //       msg: "Input your phone number",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   } else {
+  //     Fluttertoast.showToast(
+  //       msg: "All Good",
+  //       backgroundColor: Colors.red,
+  //       textColor: Colors.white,
+  //       toastLength: Toast.LENGTH_SHORT,
+  //     );
+  //   }
+  //   // signupBody SignUpBody = signupBody(
+  //   //   id: id,
+  //   //   username: username,
+  //   //   password: password,
+  //   //   email: email,
+  //   //   alamat: alamat,
+  //   //   telepon: nomor
+  //   //   );
+  //   //   print(SignUpBody.toString());
+  // }
+
+  Future registar() async {
+    var url = Uri.http("192.168.1.6", '/login/register.php', {'q': '{http}'});
+    var response = await http.post(url, body: {
+      "userid": idRegis.text,
+      "username": usernamaRegis.text,
+      "password": passwordRegis.text,
+      "email": emailRegis.text,
+      "alamat": alamatRegis.text,
+      "telepon": nomorRegis.text,
+    });
     var id = idRegis.text.trim();
     var username = usernamaRegis.text.trim();
     var password = passwordRegis.text.trim();
@@ -39,32 +126,32 @@ class _regisState extends State<regis> {
 
     if (id.isEmpty) {
       Fluttertoast.showToast(
-          msg: "Input ur ID",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
+        msg: "Input ur ID",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
     } else if (username.isEmpty) {
       Fluttertoast.showToast(
-          msg: "Input ur username",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
+        msg: "Input ur username",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
     } else if (password.isEmpty) {
       Fluttertoast.showToast(
-          msg: "Input ur Password",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
+        msg: "Input ur Password",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
     } else if (email.isEmpty) {
       Fluttertoast.showToast(
-          msg: "Input ur email",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
+        msg: "Input ur email",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
     } else if (!EmailValidator.validate(email, true)) {
       setState(() {
         Fluttertoast.showToast(
@@ -76,71 +163,33 @@ class _regisState extends State<regis> {
       });
     } else if (alamat.isEmpty) {
       Fluttertoast.showToast(
-          msg: "Input your address",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
+        msg: "Input your address",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
     } else if (nomor.isEmpty) {
       Fluttertoast.showToast(
-          msg: "Input your phone number",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
-    } else{
+        msg: "Input your phone number",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+    } else {
       Fluttertoast.showToast(
-          msg: "All Good",
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          toastLength: Toast.LENGTH_SHORT,
-        );
-        signupBody SignUpBody = signupBody(
-          id: id, 
-          username: username, 
-          password: password, 
-          email: email, 
-          alamat: alamat, 
-          telepon: nomor
-          );
-          print(SignUpBody.toString());
+        msg: "All Good",
+        backgroundColor: Colors.orange,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => login(),
+        ),
+      );
     }
   }
-
-  // Future Regist() async {
-  //   var url = Uri.http("192.168.1.10", '/login/register.php', {'q': '{http}'});
-  //   var response = await http.post(url, body: {
-  //     "userid": idRegis.text,
-  //     "username": usernamaRegis.text,
-  //     "password": passwordRegis.text,
-  //     "email": emailRegis.text,
-  //     "alamat": alamatRegis.text,
-  //     "telepon": nomorRegis.text,
-  //   });
-
-  //   if (response.body.isNotEmpty) {
-  //     json.decode(response.body);
-  //     Fluttertoast.showToast(
-  //       msg: "Register Success",
-  //       backgroundColor: Colors.orange,
-  //       textColor: Colors.white,
-  //       toastLength: Toast.LENGTH_SHORT,
-  //     );
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (context) => login(),
-  //       ),
-  //     );
-  //   } else {
-  //     Fluttertoast.showToast(
-  //       backgroundColor: Colors.red,
-  //       textColor: Colors.white,
-  //       msg: "Invalid register",
-  //       toastLength: Toast.LENGTH_SHORT,
-  //     );
-  //   }
-  // }
 
   Widget regisPass() {
     return Container(
@@ -375,7 +424,7 @@ class _regisState extends State<regis> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                     onPressed: () {
-                      _registar();
+                      registar();
                       //Regist();
                       // Navigator.push(context,
                       //     MaterialPageRoute(builder: (context) => login()));
@@ -398,54 +447,6 @@ class _regisState extends State<regis> {
               SizedBox(
                 height: Dimensions.height15,
               ),
-              // Align(
-              //   //alignment: Alignment.center,
-              //   child: Text(
-              //     "or log in with",
-              //     style: GoogleFonts.roboto(fontSize: 10, color: Colors.grey),
-              //   ),
-              // ),
-              
-
-              //BUTTON LOGIN WITH GOOGLE
-              // Container(
-              //   width: 300,
-              //   height: 40,
-              //   //margin: EdgeInsets.only(left: 30),
-              //   child: GestureDetector(
-              //     child: RawMaterialButton(
-              //       fillColor: Colors.white,
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //       onPressed: () {
-              //         Navigator.pushReplacementNamed(context, '/login');
-              //       },
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.center,
-              //         children: <Widget>[
-              //           Container(
-              //             width: 24,
-              //             height: 24,
-              //             padding: EdgeInsets.only(right: 5),
-              //             child: Image.asset(
-              //               "assets/images/google.png",
-              //             ),
-              //           ),
-              //           Text(
-              //             "Log In with Google",
-              //             style: GoogleFonts.montserrat(
-              //                 color: Color.fromARGB(255, 113, 109, 109),
-              //                 fontSize: 13,
-              //                 fontWeight: FontWeight.bold),
-              //           ),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
-
-              
 
               //FONT DONT HAVE ACCOUNT
               Row(
@@ -477,10 +478,7 @@ class _regisState extends State<regis> {
                                   fontSize: 10, color: Colors.orange),
                             ),
                             onTap: () {
-                              Navigator.of(context)
-                                  .pushReplacement(MaterialPageRoute(
-                                builder: (BuildContext context) => login(),
-                              ));
+                              Navigator.pushReplacementNamed(context, '/login');
                             })
                       ],
                     ),

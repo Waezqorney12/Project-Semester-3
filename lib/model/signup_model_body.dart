@@ -1,20 +1,24 @@
 class signupBody {
-  var id;
-  String username;
-  String password;
-  String email;
-  String alamat;
-  String telepon;
+  int? id;
+  String? username;
+  String? password;
+  String? email;
+  String? alamat;
+  String? telepon;
 
   signupBody(
-      {
-      required this.id,
-      required this.username,
-      required this.password,
-      required this.email,
-      required this.alamat,
-      required this.telepon
-      });
-
-      
+      {this.id,
+      this.username,
+      this.password,
+      this.email,
+      this.alamat,
+      this.telepon});
+    signupBody.fromJson(Map<String, dynamic> json) {
+    id = json['idproduk'];
+    username = json['username'];
+    password = json['password'];
+    email = json['email'];
+    alamat = json['alamat'];
+    telepon = json['telepon'];
+  }
 }

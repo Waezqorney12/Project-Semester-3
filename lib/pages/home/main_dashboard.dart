@@ -13,11 +13,10 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
-  
-  
+
+
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 18, 20, 22),
       body: Column(
@@ -58,12 +57,12 @@ class _dashboardState extends State<dashboard> {
             ),
           ),
           Expanded(
-              child: SingleChildScrollView(
-                child: ItemPageBody(),
-              ),
-            ),
-          ],
-        ),
+            
+              child: ItemPageBody(),
+            
+          ),
+        ],
+      ),
 
       //  SingleChildScrollView(
       //   child: Container(

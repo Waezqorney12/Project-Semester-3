@@ -25,22 +25,24 @@ class _Login extends State<login> {
   TextEditingController password = TextEditingController();
 
   Future login() async {
-    var url = Uri.http("192.168.1.10", '/login/login.php', {'q': '{http}'});
-    var response = await http.post(url, body: {
+    // var url = Uri.http("192.168.1.6", '/login/login.php', {'q': '{http}'});
+    var response = await http.post(Uri.parse("http://192.168.1.6/login/login.php"), body: {
       "email": username.text,
       "password": password.text,
     });
+    var usernamaLogin = username.text.trim();
+    var passwordLogin = password.text.trim();
 
-    var email = username.text.trim();
-    var pass = password.text.trim();
+    var datauser = json.decode(response.body);
 
-    if (email.isEmpty) {
+    if (usernamaLogin.isEmpty) {
       Fluttertoast.showToast(
         msg: "Input ur email",
-        textColor: Colors.white,
         backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
       );
-    } else if (!EmailValidator.validate(email, true)) {
+    } else if (!EmailValidator.validate(usernamaLogin, true)) {
       setState(() {
         Fluttertoast.showToast(
           msg: "Invalid Format Email",
@@ -49,16 +51,17 @@ class _Login extends State<login> {
           toastLength: Toast.LENGTH_SHORT,
         );
       });
-    } else if (pass.isEmpty) {
+    } else if (passwordLogin.isEmpty) {
       Fluttertoast.showToast(
-        msg: "Input ur password",
-        textColor: Colors.white,
+        msg: "Input your password",
         backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
       );
-    } else if (response.body.isNotEmpty) {
-      json.decode(response.body);
+    } else
+    if(datauser[0]['userid'] == true){
       Fluttertoast.showToast(
-        msg: "Login Success",
+        msg: "Login Succes",
         backgroundColor: Colors.orange,
         textColor: Colors.white,
         toastLength: Toast.LENGTH_SHORT,
@@ -66,15 +69,8 @@ class _Login extends State<login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Homes(),
+          builder: (context) => regis(),
         ),
-      );
-    } else {
-      Fluttertoast.showToast(
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-        msg: "Invalid login",
-        toastLength: Toast.LENGTH_SHORT,
       );
     }
   }
@@ -302,10 +298,7 @@ class _Login extends State<login> {
                                       fontSize: 10, color: Colors.orange),
                                 ),
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushReplacement(MaterialPageRoute(
-                                    builder: (BuildContext context) => regis(),
-                                  ));
+                                  Navigator.pushReplacementNamed(context, '/register');
                                 })
                           ],
                         ),
