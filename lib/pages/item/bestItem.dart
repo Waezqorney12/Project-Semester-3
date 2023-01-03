@@ -81,7 +81,7 @@ class bestItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconApp(iconSize: Dimensions.icon20, icon: Icons.remove),
-                DetailJudulText(judulSize: Dimensions.font16,text: "Rp.150000" + "x" + "0"),
+                DetailJudulText(judulSize: Dimensions.font16,text: "Check Out"),
                 IconApp(iconSize: Dimensions.icon20, icon: Icons.add),
               ],
             ),

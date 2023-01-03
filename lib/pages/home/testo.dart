@@ -1,13 +1,21 @@
+import 'dart:convert';
+
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jaya_office/data/api/api.dart';
+import 'package:jaya_office/data/controller/BestItemController.dart';
+import 'package:jaya_office/model/ItemProduct.dart';
+import 'package:jaya_office/pages/item/ItemPageDetail.dart';
+import 'package:jaya_office/pages/item/bestItem.dart';
 
 import 'package:jaya_office/palet ukuran/dimension.dart';
+import 'package:http/http.dart' as http;
 
 class test extends StatefulWidget {
-
   @override
   State<test> createState() => _testState();
 }
@@ -17,10 +25,22 @@ class _testState extends State<test> {
   var currentPage = 0.0;
   double scaleFactor = 0.8;
   final double _height = 220;
+  List recod = [];
+  Future<void> imageformdb() async {
+    try {
+      String uri = "http://192.168.1.6/login/lihatProduk.php";
+      var response = await http.get(Uri.parse(uri));
+      setState(() {
+        recod = json.decode(response.body);
+      });
+    } catch (e) {}
+  }
 
   @override
   void initState() {
+    imageformdb();
     super.initState();
+    // _lihatData();
     pageController.addListener(() {
       setState(() {
         currentPage = pageController.page!;
@@ -35,18 +55,31 @@ class _testState extends State<test> {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
         // Item slider
         Container(
           height: Dimensions.pageView,
           child: PageView.builder(
               controller: pageController,
-              itemCount: 5,
+              itemCount: recod.length,
               itemBuilder: (context, position) {
                 return _buildPageItem(position);
               }),
         ),
+
+        // GetBuilder<BestItemController>(builder: (bestItemProduct){
+        //   return Container(
+        //   height: Dimensions.pageView,
+        //   child: PageView.builder(
+        //       controller: pageController,
+        //       itemCount: bestItemProduct.bestItemList.length,
+        //       itemBuilder: (context, position) {
+        //         return _buildPageItem(position);
+        //       }),
+        // );
+        // },),
+
         // Dots slider point
         new DotsIndicator(
           dotsCount: 5,
@@ -82,7 +115,7 @@ class _testState extends State<test> {
         ListView.builder(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 7,
+            itemCount: recod.length,
             itemBuilder: (context, index) {
               return Container(
                 margin: EdgeInsets.only(
@@ -99,35 +132,90 @@ class _testState extends State<test> {
                         borderRadius:
                             BorderRadius.circular(Dimensions.radius15),
                         image: DecorationImage(
-                            image: AssetImage("assets/images/pulpen1.jpg"),
+                            image: NetworkImage(
+                              "http://192.168.1.6/login/upload" +
+                                  recod[index]['foto'],
+                            ),
                             fit: BoxFit.fill),
                       ),
+                      // child: Image.network(
+                      //   "http://192.168.1.6/login/upload" +
+                      //       recod[index]['foto'],
+                      //   fit: BoxFit.fill,
+                      // ),
                     ),
                     Expanded(
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(Dimensions.radius20),
-                            bottomRight: Radius.circular(Dimensions.radius20),
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                            return itemPageDetail(
+                              nama_produk: recod[index]['nama_produk'],
+                              foto: recod[index]['foto'],
+                              harga_jual: recod[index]['harga_jual'],
+                              stock: recod[index]['stock'],
+                              
+                            );
+                          }));
+                        },
+                        child: Container(
+                          height: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(Dimensions.radius20),
+                              bottomRight: Radius.circular(Dimensions.radius20),
+                            ),
+                            color: Colors.white,
                           ),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: Dimensions.widht10,
-                            right: Dimensions.widht10,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Cars World Building",
-                                style: GoogleFonts.roboto(
-                                    fontSize: Dimensions.font12,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: Dimensions.widht10,
+                              right: Dimensions.widht10,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Row(children: [
+                                  Text(
+                                    recod[index]['nama_produk'],
+                                    style: GoogleFonts.roboto(
+                                        fontSize: Dimensions.font12,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ]),
+
+                                // SizedBox(
+                                //   height: Dimensions.height10,
+                                // ),
+                                // Row(children: [
+                                //   Text(
+                                //     "Jumlah: ",
+                                //     style: GoogleFonts.roboto(
+                                //         fontSize: Dimensions.font12,
+                                //         fontWeight: FontWeight.w400),
+                                //   ),
+                                //   Text(
+                                //     recod[index]['stock'],
+                                //     style: GoogleFonts.roboto(
+                                //         fontSize: Dimensions.font12,
+                                //         fontWeight: FontWeight.w400),
+                                //   ),
+                                // ]),
+                                // Row(children: [
+                                //   Text(
+                                //     "Harga: ",
+                                //     style: GoogleFonts.roboto(
+                                //         fontSize: Dimensions.font12,
+                                //         fontWeight: FontWeight.w400),
+                                //   ),
+                                //   Text(
+                                //     recod[index]['harga_jual'],
+                                //     style: GoogleFonts.roboto(
+                                //         fontSize: Dimensions.font12,
+                                //         fontWeight: FontWeight.w400),
+                                //   ),
+                                // ]),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -139,6 +227,7 @@ class _testState extends State<test> {
       ],
     );
   }
+
   Widget _buildPageItem(int index) {
     Matrix4 matrix = Matrix4.identity();
     if (index == currentPage.floor()) {
@@ -178,7 +267,9 @@ class _testState extends State<test> {
               // color: index.isEven ? Colors.white : Colors.red,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage("assets/images/pulpen1.jpg"),
+                image: NetworkImage(
+                  "http://192.168.1.6/login/upload" + recod[index]['foto'],
+                ),
               ),
             ),
           ),
@@ -186,5 +277,4 @@ class _testState extends State<test> {
       ),
     );
   }
-
 }

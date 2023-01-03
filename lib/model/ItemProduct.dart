@@ -14,6 +14,20 @@
 //   print(product.foto);
 // }
 
+// class ProductModel {
+//   final int id;
+//   final String namaProduk;
+//   final int hargaModal;
+//   final int stock;
+//   final int hargaJual;
+//   final String foto;
+//   final String tglInput;
+//   final int userId;
+//   final String username;
+
+//   ProductModel(this.id, this.namaProduk, this.hargaModal, this.stock,
+//       this.hargaJual, this.foto, this.tglInput, this.userId, this.username);
+// }
 
 class ProductModel {
   int? idproduk;
@@ -21,19 +35,12 @@ class ProductModel {
   int? harga_modal;
   int? stock;
   int? harga_jual;
-  String? foto;
+  int? foto;
   String? tgl_input;
   int? userid;
 
-  ProductModel(
-      {this.idproduk,
-      this.nama_produk,
-      this.harga_modal,
-      this.stock,
-      this.harga_jual,
-      this.foto,
-      this.tgl_input,
-      this.userid});
+  ProductModel(this.idproduk, this.nama_produk, this.harga_modal, this.stock,
+      this.harga_jual, this.foto, this.tgl_input, this.userid);
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     idproduk = json['idproduk'];

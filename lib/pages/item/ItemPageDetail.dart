@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,15 +9,101 @@ import 'package:jaya_office/widgets/IconApp.dart';
 import 'package:jaya_office/widgets/expandebleText.dart';
 import 'package:jaya_office/widgets/food_detail_judul.dart';
 import 'package:jaya_office/widgets/food_detail_text.dart';
+import 'package:http/http.dart' as http;
 
-class itemPageDetail extends StatelessWidget {
-  const itemPageDetail({super.key});
+class itemPageDetail extends StatefulWidget {
+  final int? idproduk;
+  final String? nama_produk;
+  final int? harga_modal;
+  final String? stock;
+  final String? harga_jual;
+  final String? foto;
+  final String? tgl_input;
+  final int? userid;
+
+  itemPageDetail(
+      {this.idproduk,
+      this.nama_produk,
+      this.harga_modal,
+      this.stock,
+      this.harga_jual,
+      this.foto,
+      this.tgl_input,
+      this.userid});
 
   @override
+  State<itemPageDetail> createState() => _itemPageDetailState();
+}
+
+class _itemPageDetailState extends State<itemPageDetail> {
+  List recod = [];
+  Future<void> imageformdb() async {
+    try {
+      String uri = "http://192.168.1.6/login/lihatProduk.php";
+      var response = await http.get(Uri.parse(uri));
+      setState(() {
+        recod = json.decode(response.body);
+      });
+    } catch (e) {}
+  }
+  bool instock = false;
+  @override
+  void initState() {
+    imageformdb();
+    // TODO: implement initState
+    super.initState();
+    if (widget.stock == true) {
+      instock = widget.stock as bool;
+    }
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    //print("current height is " + MediaQuery.of(context).size.width.toString());
     return Scaffold(
-      body: Stack(
+      body: _body(),
+      bottomNavigationBar: Container(
+        height: Dimensions.BottomBar120,
+        padding: EdgeInsets.only(
+            top: Dimensions.height30,
+            bottom: Dimensions.height30,
+            left: Dimensions.height20,
+            right: Dimensions.height20),
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 18, 20, 22),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: EdgeInsets.only(
+                  top: Dimensions.height15,
+                  bottom: Dimensions.height15,
+                  left: Dimensions.height50,
+                  right: Dimensions.height50),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radius20),
+                color: Colors.orange,
+              ),
+              child: Text(
+                "Check Out",
+                style: GoogleFonts.roboto(
+                  fontSize: Dimensions.font14,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _body(){
+    return Stack(
         children: [
           //Image
           Positioned(
@@ -26,8 +114,8 @@ class itemPageDetail extends StatelessWidget {
               height: Dimensions.bestItemImgSize,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AssetImage("assets/images/pulpen1.jpg"))),
+                      fit: BoxFit.fill,
+                      image: NetworkImage("http://192.168.1.6/login/upload${widget.foto}"))),
             ),
           ),
           // Icon Widget
@@ -38,7 +126,13 @@ class itemPageDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconApp(icon: Icons.arrow_back_ios),
+                GestureDetector(
+                  child: IconApp(icon: Icons.arrow_back_ios),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, '/dashboard');
+                  },
+                ),
+                
                 IconApp(icon: Icons.shopping_cart_outlined),
               ],
             ),
@@ -64,8 +158,22 @@ class itemPageDetail extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DetailJudulText(text: "Cars World Building"),
+                  DetailJudulText(text: widget.nama_produk.toString()),
                   SizedBox(height: Dimensions.height20),
+                  Row(
+                    children: [
+                      DetailDescriptionText(text: "Harga: "),
+                      DetailDescriptionText(text: widget.harga_jual.toString()),
+                    ],
+                  ),
+                  SizedBox(height: Dimensions.height10),
+                  Row(
+                    children: [
+                      DetailDescriptionText(text: "Stock: "),
+                      DetailDescriptionText(text: widget.stock.toString()),
+                    ],
+                  ),
+                  SizedBox(height: Dimensions.height50),
                   DetailDescriptionText(text: "Description"),
                   SizedBox(height: Dimensions.height20,),
                   Expanded(
@@ -83,73 +191,6 @@ class itemPageDetail extends StatelessWidget {
           ),
           //Expandeble
         ],
-      ),
-      bottomNavigationBar: Container(
-        height: Dimensions.BottomBar120,
-        padding: EdgeInsets.only(
-            top: Dimensions.height30,
-            bottom: Dimensions.height30,
-            left: Dimensions.height20,
-            right: Dimensions.height20),
-        decoration: BoxDecoration(
-          color: Color.fromARGB(255, 18, 20, 22),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.only(
-                  top: Dimensions.height15,
-                  bottom: Dimensions.height15,
-                  left: Dimensions.widht15,
-                  right: Dimensions.widht15),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: Colors.white,
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.remove, color: Colors.black),
-                  SizedBox(
-                    width: Dimensions.widht20,
-                  ),
-                  Text(
-                    "0",
-                    style: TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  SizedBox(
-                    width: Dimensions.widht20,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Icon(Icons.add, color: Colors.black),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.only(
-                  top: Dimensions.height15,
-                  bottom: Dimensions.height15,
-                  left: Dimensions.height10,
-                  right: Dimensions.height10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
-                color: Colors.orange,
-              ),
-              child: Text(
-                "Rp.15000 | add",
-                style: GoogleFonts.roboto(
-                  fontSize: Dimensions.font14,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+      );
   }
 }

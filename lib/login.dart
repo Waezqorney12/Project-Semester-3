@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jaya_office/pages/home/item_dashboard.dart';
+
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/home.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
@@ -20,13 +20,14 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
+  List test = [];
   bool _obscureText = true;
 
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
 
   Future login() async {
-    // var url = Uri.http("192.168.1.6", '/login/login.php', {'q': '{http}'});
+    
     var response = await http.post(Uri.parse("http://192.168.1.6/login/login.php"), body: {
       "email": username.text,
       "password": password.text,
@@ -34,7 +35,7 @@ class _Login extends State<login> {
     var usernamaLogin = username.text.trim();
     var passwordLogin = password.text.trim();
 
-    var datauser = json.decode(response.body);
+    var test = json.decode(response.body);
 
     if (usernamaLogin.isEmpty) {
       Fluttertoast.showToast(
@@ -60,8 +61,8 @@ class _Login extends State<login> {
         toastLength: Toast.LENGTH_SHORT,
       );
     } else
-    if(response.body.isNotEmpty){
-      datauser;
+    if(response.statusCode == 200){
+      
       Fluttertoast.showToast(
         msg: "Login Succes",
         backgroundColor: Colors.orange,
