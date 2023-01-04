@@ -4,9 +4,45 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/backgroundscreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class profiles extends StatelessWidget {
-  const profiles({super.key});
+import 'home.dart';
+
+class profiles extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _Profiles();
+  }
+}
+
+class _Profiles extends State<profiles> {
+  String username = "";
+  String userid = "";
+  String email = "";
+  String telepon = "";
+  String alamat = "";
+  String password = "";
+
+  int _selectedIndex = 0;
+
+  Future getkode() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      username = (prefs.getString('username') ?? "");
+      userid = (prefs.getString('userid') ?? "");
+      email = (prefs.getString('email') ?? "");
+      telepon = (prefs.getString('telepon') ?? "");
+      alamat = (prefs.getString('alamat') ?? "");
+      password = (prefs.getString('password') ?? "");
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getkode();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +78,10 @@ class profiles extends StatelessWidget {
               height: 20,
             ),
 
-            Text("Free Fire",
+            Text(username,
                 style: GoogleFonts.montserrat(
                     color: Colors.white, fontWeight: FontWeight.bold)),
-            Text("Rapli", style: GoogleFonts.montserrat(color: Colors.white)),
+            Text(email, style: GoogleFonts.montserrat(color: Colors.white)),
 
             const SizedBox(
               height: 20,
@@ -69,7 +105,7 @@ class profiles extends StatelessWidget {
 
             GestureDetector(
               onTap: () {
-              Navigator.pushReplacementNamed(context, '/editprofile');
+                // Navigator.pushReplacementNamed(context, '/editprofile');
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -98,18 +134,28 @@ class profiles extends StatelessWidget {
                             color: Colors.white,
                             fontWeight: FontWeight.bold),
                       ),
-                      // trailing: Container(
-                      //   width: 30,
-                      //   height: 30,
-                      //   decoration: BoxDecoration(
-                      //     borderRadius: BorderRadius.circular(100),
-                      //     color: Colors.grey.withOpacity(0.1),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     Navigator.push(
+                      //       context,
+                      //       MaterialPageRoute(
+                      //         builder: (context) => Homes(),
+                      //         ),
+                      //         );
+                      //   },
                       //   ),
-                      //   child: Icon(
-                      //     Icons.arrow_right,
-                      //     color: Colors.white,
-                      //   ),
-                      // ),
+                      trailing: Container(
+                        width: 30,
+                        height: 30,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: Colors.grey.withOpacity(0.1),
+                        ),
+                        child: Icon(
+                          Icons.arrow_right,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ],
                 ),

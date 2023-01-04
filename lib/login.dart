@@ -7,12 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/home.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'register.dart';
 import 'main.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:email_validator/email_validator.dart';
+import 'package:jaya_office/data/api/api.dart';
 
 class login extends StatefulWidget {
   @override
@@ -20,7 +22,7 @@ class login extends StatefulWidget {
 }
 
 class _Login extends State<login> {
-  List test = [];
+  // List test = [];
   bool _obscureText = true;
 
   TextEditingController username = TextEditingController();
@@ -28,14 +30,15 @@ class _Login extends State<login> {
 
   Future login() async {
     
-    var response = await http.post(Uri.parse("http://192.168.1.6/login/login.php"), body: {
+    var response = await http.post(Uri.parse("${fire.URL_API}/login.php"), body: {
       "email": username.text,
       "password": password.text,
+      
     });
     var usernamaLogin = username.text.trim();
     var passwordLogin = password.text.trim();
 
-    var test = json.decode(response.body);
+    var datauser = json.decode(response.body);
 
     if (usernamaLogin.isEmpty) {
       Fluttertoast.showToast(
@@ -61,18 +64,98 @@ class _Login extends State<login> {
         toastLength: Toast.LENGTH_SHORT,
       );
     } else
-    if(response.statusCode == 200){
+    if(datauser.length == 0){
       
+      Fluttertoast.showToast(
+        msg: "Login Failed",
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        toastLength: Toast.LENGTH_SHORT,
+      );
+      // final prefs = await SharedPreferences.getInstance();
+      //   prefs.setBool('isLoggedIn', true);
+
+      //   await prefs.setString(
+      //     'username',
+      //     datauser['userInfo']['username'],
+      //   );
+
+      //   await prefs.setString(
+      //     'userid',
+      //     datauser['userInfo']['userid'],
+      //   );
+
+      //   await prefs.setString(
+      //     'email',
+      //     datauser['userInfo']['email'],
+      //   );
+
+      //   await prefs.setString(
+      //     'telepon',
+      //     datauser['userInfo']['telepon'],
+      //   );
+
+      //   await prefs.setString(
+      //     'alamat',
+      //     datauser['userInfo']['alamat'],
+      //   );
+
+      //   await prefs.setString(
+      //     'password',
+      //     datauser['userInfo']['password'],
+      //   );
+
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(
+      //     builder: (context) => Homes(),
+      //   ),
+      // );
+    }else if(response.body.isNotEmpty){
+      datauser;
       Fluttertoast.showToast(
         msg: "Login Succes",
         backgroundColor: Colors.orange,
         textColor: Colors.white,
         toastLength: Toast.LENGTH_SHORT,
       );
+      // final prefs = await SharedPreferences.getInstance();
+      //   prefs.setBool('isLoggedIn', true);
+
+      //   await prefs.setString(
+      //     'username',
+      //     datauser['userInfo']['username'],
+      //   );
+
+      //   await prefs.setString(
+      //     'userid',
+      //     datauser['userInfo']['userid'],
+      //   );
+
+      //   await prefs.setString(
+      //     'email',
+      //     datauser['userInfo']['email'],
+      //   );
+
+      //   await prefs.setString(
+      //     'telepon',
+      //     datauser['userInfo']['telepon'],
+      //   );
+
+      //   await prefs.setString(
+      //     'alamat',
+      //     datauser['userInfo']['alamat'],
+      //   );
+
+      //   await prefs.setString(
+      //     'password',
+      //     datauser['userInfo']['password'],
+      //   );
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => dashboard(),
+          builder: (context) => Homes(),
         ),
       );
     }

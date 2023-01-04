@@ -82,7 +82,7 @@ class _testState extends State<test> {
 
         // Dots slider point
         new DotsIndicator(
-          dotsCount: 5,
+          dotsCount: 6,
           position: currentPage,
           decorator: DotsDecorator(
             size: const Size.square(9.0),
@@ -152,7 +152,7 @@ class _testState extends State<test> {
                               nama_produk: recod[index]['nama_produk'],
                               foto: recod[index]['foto'],
                               harga_jual: recod[index]['harga_jual'],
-                              stock: recod[index]['stock'],
+                              stock: int.parse(recod[index]['stock']),
                               
                             );
                           }));
@@ -266,7 +266,7 @@ class _testState extends State<test> {
               borderRadius: BorderRadius.circular(Dimensions.radius30),
               // color: index.isEven ? Colors.white : Colors.red,
               image: DecorationImage(
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 image: NetworkImage(
                   "http://192.168.1.6/login/upload" + recod[index]['foto'],
                 ),
