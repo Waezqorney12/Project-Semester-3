@@ -41,9 +41,9 @@ class _ordersState extends State<orders> {
     });
     int subtotal = 0;
     for (int i = 0; i < keranjanglist.length; i++) {
-      if (keranjanglist[i].harga != "0") {
-        subtotal += keranjanglist[i].qty! *
-            int.parse(keranjanglist[i].harga.toString());
+      if (keranjanglist[i].harga.toString() != "0") {
+        subtotal +=
+            keranjanglist[i].qty! * int.parse(keranjanglist[i].harga_modal.toString());
       }
     }
     setState(() {
@@ -121,7 +121,12 @@ class _ordersState extends State<orders> {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 18, 20, 22),
       body: keranjanglist.isEmpty ? _keranjangKosong() : _widgetKeranjang(),
-      //   body: Center(
+        // body: Center(
+        //   child: Text("text",
+        //   style: TextStyle(
+        //   fontSize: 10.0,
+        //   ),
+        //   ),
       //       child: Column(
       //     children: <Widget>[
       //       Padding(
@@ -166,7 +171,33 @@ class _ordersState extends State<orders> {
       //   )),
     );
   }
+_tambahJmlKeranjang(int id) async {
+    Database db = await dbHelper.database;
+    var batch = db.batch();
+    db.execute('update keranjang set jumlah=jumlah+1 where id=?', [id]);
+    await batch.commit();
+  }
 
+  _kurangJmlKeranjang(int id) async {
+    Database db = await dbHelper.database;
+    var batch = db.batch();
+    db.execute('update keranjang set jumlah=jumlah-1 where id=?', [id]);
+    await batch.commit();
+  }
+
+  _deleteKeranjang(int id) async {
+    Database db = await dbHelper.database;
+    var batch = db.batch();
+    db.execute('delete from keranjang where id=?', [id]);
+    await batch.commit();
+  }
+
+  _kosongkanKeranjang() async {
+    Database db = await dbHelper.database;
+    var batch = db.batch();
+    db.execute('delete from keranjang');
+    await batch.commit();
+  }
   Widget _keranjangKosong() {
     return FutureBuilder(
       future: Future.delayed(Duration(seconds: 1)),
@@ -206,6 +237,7 @@ class _ordersState extends State<orders> {
             ),
     );
   }
+
   Widget _widgetKeranjang() {
     return SafeArea(
       child: Container(
@@ -219,16 +251,15 @@ class _ordersState extends State<orders> {
                   if (!snapshot.hasData)
                     return Center(child: CircularProgressIndicator());
 
-
                   return ListView.builder(
-                    itemCount: snapshot.data.length,
+                    itemCount: snapshot.data!.length,
                     itemBuilder: (context, i) {
                       return Container(
                         height: 110.0,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           border: Border(
                             bottom: BorderSide(
-                              color: Colors.grey[300],
+                              color: Colors.grey,
                               width: 1.0,
                             ),
                           ),
@@ -239,14 +270,14 @@ class _ordersState extends State<orders> {
                         ),
                         child: ListTile(
                           dense: true,
-                          contentPadding: EdgeInsets.only(
+                          contentPadding: const EdgeInsets.only(
                               left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
                           title: Container(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 new Image.network(
-                                  Palette.sUrl +"/"+ snapshot.data[i].thumbnail,
+                                  "http://192.168.1.6/login/upload${snapshot.data![i].foto}",
                                   height: 110.0,
                                   width: 110.0,
                                 ),
@@ -258,9 +289,9 @@ class _ordersState extends State<orders> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text(snapshot.data[i].judul,
+                                        Text(snapshot.data![i].nama_produk.toString(),
                                             style: TextStyle(fontSize: 16.0)),
-                                        Text(snapshot.data[i].harga,
+                                        Text(snapshot.data![i].harga.toString(),
                                             style: TextStyle(
                                                 color: Colors.red,
                                                 fontSize: 14.0)),
@@ -284,11 +315,10 @@ class _ordersState extends State<orders> {
                                                   InkWell(
                                                     onTap: () {
                                                       if (snapshot
-                                                              .data[i].jumlah >
+                                                              .data![i].qty! >
                                                           1) {
                                                         _kurangJmlKeranjang(
-                                                            snapshot
-                                                                .data[i].id);
+                                                            snapshot.data![i].idcart!.toInt());
                                                       }
                                                     },
                                                     child: Icon(
@@ -298,7 +328,7 @@ class _ordersState extends State<orders> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    snapshot.data[i].jumlah
+                                                    snapshot.data![i].qty
                                                         .toString(),
                                                     style: TextStyle(
                                                         color: Colors.black,
@@ -307,7 +337,7 @@ class _ordersState extends State<orders> {
                                                   InkWell(
                                                     onTap: () {
                                                       _tambahJmlKeranjang(
-                                                          snapshot.data[i].id);
+                                                          snapshot.data![i].idcart!.toInt());
                                                     },
                                                     child: Icon(
                                                       Icons.add,
@@ -332,7 +362,7 @@ class _ordersState extends State<orders> {
                                                   child: InkWell(
                                                     onTap: () {
                                                       _deleteKeranjang(
-                                                          snapshot.data[i].id);
+                                                          snapshot.data![i].idcart!.toInt());
                                                     },
                                                     child: Container(
                                                       height: 25,

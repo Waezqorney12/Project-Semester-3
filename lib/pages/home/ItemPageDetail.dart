@@ -15,11 +15,11 @@ import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
 
 class itemPageDetail extends StatefulWidget {
-  int? idproduk;
+  final int? idproduk;
   final String? nama_produk;
-  int? harga_modal;
-  int? stock;
-  int? harga_jual;
+  final int? harga_modal;
+  final int? stock;
+  final int? harga_jual;
   final String? foto;
   final String? tgl_input;
   final int? userid;

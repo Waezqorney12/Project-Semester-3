@@ -10,7 +10,7 @@ import 'package:jaya_office/data/api/api.dart';
 import 'package:jaya_office/data/controller/BestItemController.dart';
 import 'package:jaya_office/model/ItemProduct.dart';
 import 'package:jaya_office/pages/home/ItemPageDetail.dart';
-import 'package:jaya_office/pages/item/bestItem.dart';
+
 
 import 'package:jaya_office/palet ukuran/dimension.dart';
 import 'package:http/http.dart' as http;
@@ -71,6 +71,19 @@ class _testState extends State<test> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.widht20),
+          child: Row(
+            children: [
+              Text("New Item",
+                  style: GoogleFonts.montserrat(
+                    fontSize: Dimensions.font14,
+                    color: Colors.white,
+                  )),
+            ],
+          ),
+        ),
+        SizedBox(height: Dimensions.height25,),
         // Item slider
         Container(
           height: Dimensions.pageView,
@@ -139,6 +152,7 @@ class _testState extends State<test> {
                 ),
                 child: Row(
                   children: [
+                    
                     Container(
                       height: Dimensions.ListImage,
                       width: Dimensions.ListImage,
@@ -277,6 +291,7 @@ class _testState extends State<test> {
       transform: matrix,
       child: Stack(
         children: [
+          
           Container(
             height: Dimensions.pageViewContainer,
             margin: EdgeInsets.only(

@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:http/http.dart' as http;
@@ -16,8 +18,40 @@ class dashboard extends StatefulWidget {
 }
 
 class _dashboardState extends State<dashboard> {
+  Position? _currentPosition;
+  String? _currentAddres;
+  bool isLoading = false;
+  
+  Future<Position> _getPosition() async{
+    LocationPermission permission;
 
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if(permission == LocationPermission.deniedForever){
+        return Future.error("Location not available");
+      }
+    }else{
+      print("Location not available");
+    }
+    return await Geolocator.getCurrentPosition();
+  }
 
+  void _getAdress(latitude,longitude) async {
+  try {
+    List<Placemark> placeMark = await GeocodingPlatform.instance.placemarkFromCoordinates(latitude, longitude);
+  
+    Placemark place = placeMark[0];
+    
+      setState(() {
+      _currentAddres = '${place.subAdministrativeArea},${place.subLocality},${place.street}';
+    });
+    
+    
+  } catch (e) {
+    print(e);
+  }
+  }
   @override
   
   Widget build(BuildContext context) {
@@ -28,38 +62,47 @@ class _dashboardState extends State<dashboard> {
           Container(
             child: Container(
               margin: EdgeInsets.only(top: 45, bottom: 15),
-              padding: EdgeInsets.only(left: 20, right: 20),
+              
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
+                    
                     children: [
+                      isLoading? CircularProgressIndicator():
                       Container(
                         child: Text(
-                          "Jember",
+                          _currentAddres.toString(),
                           style: GoogleFonts.montserrat(
+                            fontSize: 10,
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "Lokasi",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.white, fontSize: 12),
+                      SizedBox(
+                        height: Dimensions.height10,
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          _currentPosition = await _getPosition();
+                          _getAdress(_currentPosition!.latitude, _currentPosition!.longitude);
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
+                        child: Container(
+                          child: Text(
+                            "Get Location",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.white, fontSize: 12),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Container(
-                    width: 45,
-                    height: 45,
-                    child: Icon(
-                      Icons.search,
-                    ),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15)),
-                  ),
+                  
                 ],
               ),
             ),
@@ -67,18 +110,7 @@ class _dashboardState extends State<dashboard> {
           SizedBox(
             height: Dimensions.height30,
           ),
-          Container(
-          margin: EdgeInsets.only(left: Dimensions.widht20),
-          child: Row(
-            children: [
-              Text("New Item",
-                  style: GoogleFonts.montserrat(
-                    fontSize: Dimensions.font14,
-                    color: Colors.white,
-                  )),
-            ],
-          ),
-        ),
+          
           SizedBox(
             height: Dimensions.height25,
           ),
