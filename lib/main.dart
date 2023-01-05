@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Project',
-      home: Homes(),
+      home: SplashScreen(),
       //SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => login(),

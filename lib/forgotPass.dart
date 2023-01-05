@@ -24,7 +24,7 @@ class _forgotPassState extends State<forgotPass> {
 
   String msg = '';
   Future forgotz() async {
-    var url = Uri.http("192.168.1.10", '/login/verif.php', {'q': '{http}'});
+    var url = Uri.http("192.168.1.6", '/login/verif.php', {'q': '{http}'});
     var response = await http.post(url, body: {
       // "username" : _usernamaReset.text,
       "email": _emailReset.text,

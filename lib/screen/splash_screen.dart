@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:jaya_office/login.dart';
 import 'dart:async';
@@ -13,9 +15,14 @@ class _SplashScreen extends State<SplashScreen> {
   }
 
   splashscreenStart() async {
-    var duration = const Duration(seconds: 3);
+    var duration = const Duration(seconds: 5);
     return Timer(duration, () {
-      Navigator.pushReplacementNamed(context, '/login');
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => login(),
+        ),
+      );
     });
   }
   @override
