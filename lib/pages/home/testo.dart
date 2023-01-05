@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/data/api/api.dart';
 import 'package:jaya_office/data/controller/BestItemController.dart';
 import 'package:jaya_office/model/ItemProduct.dart';
-import 'package:jaya_office/pages/item/ItemPageDetail.dart';
+import 'package:jaya_office/pages/home/ItemPageDetail.dart';
 import 'package:jaya_office/pages/item/bestItem.dart';
 
 import 'package:jaya_office/palet ukuran/dimension.dart';
@@ -25,6 +25,19 @@ class _testState extends State<test> {
   var currentPage = 0.0;
   double scaleFactor = 0.8;
   final double _height = 220;
+
+  List limito = [];
+  Future<void> limitimage() async {
+    try {
+      String uri = "http://192.168.1.6/login/lihatProdukLimit.php";
+      var response = await http.get(Uri.parse(uri));
+      setState(() {
+        limito = json.decode(response.body);
+      });
+    } catch (e) {}
+  }
+
+  
   List recod = [];
   Future<void> imageformdb() async {
     try {
@@ -38,6 +51,7 @@ class _testState extends State<test> {
 
   @override
   void initState() {
+    limitimage();
     imageformdb();
     super.initState();
     // _lihatData();
@@ -81,8 +95,8 @@ class _testState extends State<test> {
         // },),
 
         // Dots slider point
-        new DotsIndicator(
-          dotsCount: 6,
+        DotsIndicator(
+          dotsCount: limito.isNotEmpty?limito.length:3,
           position: currentPage,
           decorator: DotsDecorator(
             size: const Size.square(9.0),
@@ -95,13 +109,13 @@ class _testState extends State<test> {
         ),
 
         SizedBox(
-          height: Dimensions.height30,
+          height: Dimensions.height40,
         ),
         Container(
           margin: EdgeInsets.only(left: Dimensions.widht30),
           child: Row(
             children: [
-              Text("Popular Items",
+              Text("List Item",
                   style: GoogleFonts.montserrat(
                     fontSize: Dimensions.font14,
                     color: Colors.white,
@@ -110,7 +124,7 @@ class _testState extends State<test> {
           ),
         ),
         SizedBox(
-          height: Dimensions.height30,
+          height: Dimensions.height10,
         ),
         ListView.builder(
             physics: NeverScrollableScrollPhysics(),
@@ -149,13 +163,18 @@ class _testState extends State<test> {
                         onTap: (){
                           Navigator.of(context).push(MaterialPageRoute(builder: (context){
                             return itemPageDetail(
+                              idproduk: int.parse(recod[index]['idproduk']),
                               nama_produk: recod[index]['nama_produk'],
                               foto: recod[index]['foto'],
-                              harga_jual: recod[index]['harga_jual'],
+                              harga_modal: int.parse(recod[index]['harga_modal']),
+                              harga_jual: int.parse(recod[index]['harga_jual']),
                               stock: int.parse(recod[index]['stock']),
+                              userid: int.parse(recod[index]['userid']),
                               
                             );
-                          }));
+                          },
+                          ),
+                          );
                         },
                         child: Container(
                           height: 100,
@@ -268,11 +287,12 @@ class _testState extends State<test> {
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(
-                  "http://192.168.1.6/login/upload" + recod[index]['foto'],
+                  "http://192.168.1.6/login/upload${limito[index]['foto']}" ,
                 ),
               ),
             ),
           ),
+          
         ],
       ),
     );

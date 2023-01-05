@@ -14,13 +14,13 @@ import 'package:jaya_office/home.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/login.dart';
 
-import 'package:jaya_office/pages/item/ItemPageDetail.dart';
+import 'package:jaya_office/pages/home/ItemPageDetail.dart';
 import 'package:jaya_office/pages/item/bestItem.dart';
 import 'package:jaya_office/profile.dart';
 // import 'package:jaya_office/profile.dart';
 import 'package:jaya_office/register.dart';
 import 'package:jaya_office/screen/splash_screen.dart';
-import 'Order.dart';
+import 'pages/home/Order.dart';
 import 'data/helper/dependecies.dart' as dep;
 
 Future<void> main() async {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Project',
-      home: login(),
+      home: Homes(),
       //SplashScreen(),
       routes: <String, WidgetBuilder>{
         '/login': (BuildContext context) => login(),
@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/order': (BuildContext context) => orders(),
         '/detail' : (BuildContext context) => itemPageDetail(),
         '/dashboard' : (BuildContext context) => dashboard(), 
+        '/homie':(BuildContext context)=> Homes(nav:'1'),
       },
     );
   }

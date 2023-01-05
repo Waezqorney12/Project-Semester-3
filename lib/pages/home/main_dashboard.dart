@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:jaya_office/pages/home/testo.dart';
+import 'package:jaya_office/palet%20ukuran/dimension.dart';
 
 
 class dashboard extends StatefulWidget {
@@ -33,15 +34,19 @@ class _dashboardState extends State<dashboard> {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        "Jember",
-                        style: GoogleFonts.montserrat(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                      Container(
+                        child: Text(
+                          "Jember",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                      Text(
-                        "Lokasi",
-                        style: GoogleFonts.montserrat(
-                            color: Colors.white, fontSize: 12),
+                      Container(
+                        child: Text(
+                          "Lokasi",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white, fontSize: 12),
+                        ),
                       ),
                     ],
                   ),
@@ -58,6 +63,24 @@ class _dashboardState extends State<dashboard> {
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            height: Dimensions.height30,
+          ),
+          Container(
+          margin: EdgeInsets.only(left: Dimensions.widht20),
+          child: Row(
+            children: [
+              Text("New Item",
+                  style: GoogleFonts.montserrat(
+                    fontSize: Dimensions.font14,
+                    color: Colors.white,
+                  )),
+            ],
+          ),
+        ),
+          SizedBox(
+            height: Dimensions.height25,
           ),
           Expanded(child: 
             SingleChildScrollView(

@@ -68,7 +68,7 @@ class _Profiles extends State<profiles> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      "assets/images/propil.jpg",
+                      "assets/images/propil.png",
                     ),
                   ),
                 ),

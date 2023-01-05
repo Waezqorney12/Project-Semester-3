@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:jaya_office/Order.dart';
+import 'package:jaya_office/pages/home/Order.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
 import 'package:jaya_office/profile.dart';
 
 class Homes extends StatefulWidget {
+  final Widget? child;
+  final String? nav;
+
+  const Homes({super.key, this.nav, this.child});
   @override
   State<Homes> createState() => _HomesState();
 }
@@ -19,6 +23,19 @@ class _HomesState extends State<Homes> {
     orders(),
     profiles(),
   ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (widget.nav == '1') {
+      index = 1;
+    }
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

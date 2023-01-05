@@ -4,33 +4,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:jaya_office/data/helper/dbhelper.dart';
+import 'package:jaya_office/model/keranjang.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
 import 'package:jaya_office/widgets/IconApp.dart';
 import 'package:jaya_office/widgets/expandebleText.dart';
 import 'package:jaya_office/widgets/food_detail_judul.dart';
 import 'package:jaya_office/widgets/food_detail_text.dart';
 import 'package:http/http.dart' as http;
+import 'package:sqflite/sqflite.dart';
 
 class itemPageDetail extends StatefulWidget {
-  final int? idproduk;
+  int? idproduk;
   final String? nama_produk;
-  //final int? harga_modal;
+  int? harga_modal;
   int? stock;
-  final String? harga_jual;
+  int? harga_jual;
   final String? foto;
-  //final String? tgl_input;
-  //final int? userid;
+  final String? tgl_input;
+  final int? userid;
   final bool? valstok;
 
   itemPageDetail(
       {this.idproduk,
       this.nama_produk,
-      //this.harga_modal,
+      this.harga_modal,
       this.stock,
       this.harga_jual,
       this.foto,
-      //this.tgl_input,
-      //this.userid,
+      this.tgl_input,
+      this.userid,
       this.valstok});
 
   @override
@@ -39,8 +42,11 @@ class itemPageDetail extends StatefulWidget {
 
 class _itemPageDetailState extends State<itemPageDetail> {
   int num = 0;
-  
+  int? userid;
   List recod = [];
+
+  DbHelper dbHelper = DbHelper();
+
   Future<void> imageformdb() async {
     try {
       String uri = "http://192.168.1.6/login/lihatProduk.php";
@@ -50,15 +56,31 @@ class _itemPageDetailState extends State<itemPageDetail> {
       });
     } catch (e) {}
   }
-
+  saveKeranjang(Keranjang _keranjang) async{
+    Database db = await dbHelper.database;
+    var batch = db.batch();
+    db.execute(
+      'insert into keranjang(idproduk,nama_produk,harga,harga_modal,foto,jumlah,userid) VALUES(?,?,?,?,?,?,?)' ,
+      [
+        _keranjang.idproduk,
+        _keranjang.nama_produk,
+        _keranjang.harga,
+        _keranjang.harga_modal,
+        _keranjang.foto,
+        _keranjang.qty,
+        _keranjang.userid
+      ],
+    );
+    await batch.commit();
+    Navigator.of(context).pushReplacementNamed('/homie');
+  }
   // bool instock = false;
   @override
-  void initState() {
+  void initState() { 
     imageformdb();
     // TODO: implement initState
     super.initState();
-    
-    
+
     // if (widget.stock == true) {
     //   instock = widget.stock as bool;
     // }else{
@@ -93,26 +115,44 @@ class _itemPageDetailState extends State<itemPageDetail> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding: EdgeInsets.only(
-                      top: Dimensions.height15,
-                      bottom: Dimensions.height15,
-                      left: Dimensions.widht100,
-                      right: Dimensions.widht100),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(Dimensions.radius20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: num > widget.stock!.toInt() ? Colors.grey : Colors.orange,
-                      )
-                    ]
-                  ),
-                  child: Text(
-                    "Check Out",
-                    style: GoogleFonts.roboto(
-                        fontSize: Dimensions.font14,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                GestureDetector(
+                  onTap: () {
+                    if (num <= widget.stock!.toInt()) {
+                    Keranjang _keranjangku = Keranjang(
+                      idproduk: widget.idproduk,
+                      nama_produk: widget.nama_produk,
+                      harga: widget.harga_jual,
+                      harga_modal: widget.harga_modal,
+                      foto: widget.foto,
+                      qty: widget.stock,
+                      userid: userid,
+                      
+                    );
+                    saveKeranjang(_keranjangku);
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: Dimensions.height15,
+                        bottom: Dimensions.height15,
+                        left: Dimensions.widht100,
+                        right: Dimensions.widht100),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(Dimensions.radius20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: num > widget.stock!.toInt()
+                                ? Colors.grey
+                                : Colors.orange,
+                          )
+                        ]),
+                    child: Text(
+                      "Check Out",
+                      style: GoogleFonts.roboto(
+                          fontSize: Dimensions.font14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ],
@@ -122,7 +162,7 @@ class _itemPageDetailState extends State<itemPageDetail> {
       ),
     );
   }
-
+  
   Widget _body() {
     return Stack(
       children: [
@@ -154,7 +194,12 @@ class _itemPageDetailState extends State<itemPageDetail> {
                   Navigator.pushReplacementNamed(context, '/home');
                 },
               ),
-              IconApp(icon: Icons.shopping_cart_outlined),
+              GestureDetector(
+                onTap: (){
+                  Navigator.pushReplacementNamed(context, '/homie');
+                  // Navigator.of(context).pushAndRemoveUntil('/order', (Route<dynamic> route) => false);
+                },
+                  child: IconApp(icon: Icons.shopping_cart_outlined)),
             ],
           ),
         ),
@@ -216,7 +261,7 @@ class _itemPageDetailState extends State<itemPageDetail> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
                             num -= 1;
                             if (num < 0) {
@@ -224,21 +269,20 @@ class _itemPageDetailState extends State<itemPageDetail> {
                             }
                           });
                         },
-                        child: IconApp(iconSize: Dimensions.icon16, icon: Icons.remove),
+                        child: IconApp(
+                            iconSize: Dimensions.icon16, icon: Icons.remove),
                       ),
-                      
                       DetailJudulText(
                           judulSize: Dimensions.font16, text: num.toString()),
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           setState(() {
-                            
                             num += 1;
                           });
                         },
-                        child: IconApp(iconSize: Dimensions.icon16, icon: Icons.add),
+                        child: IconApp(
+                            iconSize: Dimensions.icon16, icon: Icons.add),
                       ),
-                      
                     ],
                   ),
                 ),

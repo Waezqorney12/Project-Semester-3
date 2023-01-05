@@ -18,7 +18,11 @@ class _SplashScreen extends State<SplashScreen> {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }
-
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
