@@ -7,7 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/data/api/api.dart';
-import 'package:jaya_office/data/controller/BestItemController.dart';
+import 'package:jaya_office/note/BestItemController.dart';
 import 'package:jaya_office/model/ItemProduct.dart';
 import 'package:jaya_office/pages/home/ItemPageDetail.dart';
 
@@ -29,7 +29,7 @@ class _testState extends State<test> {
   List limito = [];
   Future<void> limitimage() async {
     try {
-      String uri = "http://192.168.1.6/login/lihatProdukLimit.php";
+      String uri = "${fire.URL_API}/lihatProdukLimit.php";
       var response = await http.get(Uri.parse(uri));
       setState(() {
         limito = json.decode(response.body);
@@ -41,7 +41,7 @@ class _testState extends State<test> {
   List recod = [];
   Future<void> imageformdb() async {
     try {
-      String uri = "http://192.168.1.6/login/lihatProduk.php";
+      String uri = "${fire.URL_API}/lihatProduk.php";
       var response = await http.get(Uri.parse(uri));
       setState(() {
         recod = json.decode(response.body);
@@ -161,8 +161,7 @@ class _testState extends State<test> {
                             BorderRadius.circular(Dimensions.radius15),
                         image: DecorationImage(
                             image: NetworkImage(
-                              "http://192.168.1.6/login/upload" +
-                                  recod[index]['foto'],
+                              "${fire.URL_API}/upload${recod[index]['foto']}",
                             ),
                             fit: BoxFit.fill),
                       ),
@@ -302,7 +301,7 @@ class _testState extends State<test> {
               image: DecorationImage(
                 fit: BoxFit.fill,
                 image: NetworkImage(
-                  "http://192.168.1.6/login/upload${limito[index]['foto']}" ,
+                  "${fire.URL_API}/upload${limito[index]['foto']}" ,
                 ),
               ),
             ),

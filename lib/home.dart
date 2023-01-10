@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:jaya_office/pages/home/Order.dart';
 import 'package:jaya_office/pages/home/main_dashboard.dart';
-import 'package:jaya_office/profile.dart';
+import 'package:jaya_office/profile/profile.dart';
 
 class Homes extends StatefulWidget {
   final Widget? child;

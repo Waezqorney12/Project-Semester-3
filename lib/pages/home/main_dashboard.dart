@@ -44,7 +44,7 @@ class _dashboardState extends State<dashboard> {
     Placemark place = placeMark[0];
     
       setState(() {
-      _currentAddres = '${place.subAdministrativeArea},${place.subLocality},${place.street}';
+      _currentAddres = '${place.subAdministrativeArea},${place.subLocality}';
     });
     
     

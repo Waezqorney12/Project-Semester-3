@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:jaya_office/data/api/apiClient.dart';
-import 'package:jaya_office/data/controller/BestItemController.dart';
-import 'package:jaya_office/data/repository/best_item_repo.dart';
+
+import 'package:jaya_office/note/BestItemController.dart';
+import 'package:jaya_office/note/apiClient.dart';
+import 'package:jaya_office/note/best_item_repo.dart';
 
 
 Future<void> init() async{

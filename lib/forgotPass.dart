@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:jaya_office/login.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
+import 'package:jaya_office/data/api/api.dart';
 
 class forgotPass extends StatefulWidget {
   @override
@@ -24,8 +25,8 @@ class _forgotPassState extends State<forgotPass> {
 
   String msg = '';
   Future forgotz() async {
-    var url = Uri.http("192.168.1.6", '/login/verif.php', {'q': '{http}'});
-    var response = await http.post(url, body: {
+    
+    var response = await http.post(Uri.parse("${fire.URL_API}/verif.php"), body: {
       // "username" : _usernamaReset.text,
       "email": _emailReset.text,
       "password": _passwordReset.text,

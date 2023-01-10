@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
-import 'package:jaya_office/data/repository/best_item_repo.dart';
+
 import 'package:jaya_office/model/ItemProduct.dart';
+import 'package:jaya_office/note/best_item_repo.dart';
 
 class BestItemController extends GetxController {
   final BestItemRepo bestItemRepo;

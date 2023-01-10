@@ -277,7 +277,7 @@ _tambahJmlKeranjang(int id) async {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 new Image.network(
-                                  "http://192.168.1.6/login/upload${snapshot.data![i].foto}",
+                                  "http://10.10.3.215/login/upload${snapshot.data![i].foto}",
                                   height: 110.0,
                                   width: 110.0,
                                 ),

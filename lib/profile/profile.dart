@@ -4,9 +4,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jaya_office/backgroundscreen.dart';
+import 'package:jaya_office/profile/accountEdit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'home.dart';
+import '../home.dart';
 
 class profiles extends StatefulWidget {
   @override
@@ -29,14 +30,18 @@ class _Profiles extends State<profiles> {
     final prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      username = (prefs.getString('username') ?? "");
+      
       userid = (prefs.getString('userid') ?? "");
-      email = (prefs.getString('email') ?? "");
-      telepon = (prefs.getString('telepon') ?? "");
-      alamat = (prefs.getString('alamat') ?? "");
+      username = (prefs.getString('username') ?? "");
       password = (prefs.getString('password') ?? "");
+      email = (prefs.getString('email') ?? "");
+      alamat = (prefs.getString('alamat') ?? "");
+      telepon = (prefs.getString('telepon') ?? "");
+      
+      
     });
   }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -68,7 +73,7 @@ class _Profiles extends State<profiles> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(100),
                     child: Image.asset(
-                      "assets/images/propil.png",
+                      "assets/images/propil.jpg",
                     ),
                   ),
                 ),
@@ -82,6 +87,9 @@ class _Profiles extends State<profiles> {
                 style: GoogleFonts.montserrat(
                     color: Colors.white, fontWeight: FontWeight.bold)),
             Text(email, style: GoogleFonts.montserrat(color: Colors.white)),
+            Text(userid, style: GoogleFonts.montserrat(color: Colors.white)),
+            Text(alamat, style: GoogleFonts.montserrat(color: Colors.white)),
+            Text(telepon, style: GoogleFonts.montserrat(color: Colors.white)),
 
             const SizedBox(
               height: 20,
@@ -105,6 +113,12 @@ class _Profiles extends State<profiles> {
 
             GestureDetector(
               onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditProfilePage(),
+                  ),
+                );
                 // Navigator.pushReplacementNamed(context, '/editprofile');
               },
               child: Container(
@@ -140,10 +154,10 @@ class _Profiles extends State<profiles> {
                       //       context,
                       //       MaterialPageRoute(
                       //         builder: (context) => Homes(),
-                      //         ),
-                      //         );
+                      //       ),
+                      //     );
                       //   },
-                      //   ),
+                      // ),
                       trailing: Container(
                         width: 30,
                         height: 30,
@@ -204,25 +218,30 @@ class _Profiles extends State<profiles> {
                 ),
                 child: Column(
                   children: [
-                    ListTile(
-                      leading: Container(
-                        width: 30,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: Colors.white,
-                        ),
-                        child: Icon(
-                          Icons.close,
-                          color: Colors.black,
-                        ),
-                      ),
-                      title: Text(
-                        "Coming Soon",
-                        style: GoogleFonts.montserrat(
-                            fontSize: 10,
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushReplacementNamed(context, '/login');
+                      },
+                      child: ListTile(
+                        leading: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
                             color: Colors.white,
-                            fontWeight: FontWeight.bold),
+                          ),
+                          child: Icon(
+                            Icons.close,
+                            color: Colors.black,
+                          ),
+                        ),
+                        title: Text(
+                          "Log Out",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 10,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ],

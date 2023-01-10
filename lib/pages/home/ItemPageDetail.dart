@@ -13,6 +13,7 @@ import 'package:jaya_office/widgets/food_detail_judul.dart';
 import 'package:jaya_office/widgets/food_detail_text.dart';
 import 'package:http/http.dart' as http;
 import 'package:sqflite/sqflite.dart';
+import 'package:jaya_office/data/api/api.dart';
 
 class itemPageDetail extends StatefulWidget {
   final int? idproduk;
@@ -49,7 +50,7 @@ class _itemPageDetailState extends State<itemPageDetail> {
 
   Future<void> imageformdb() async {
     try {
-      String uri = "http://192.168.1.6/login/lihatProduk.php";
+      String uri = "${fire.URL_API}/lihatProduk.php";
       var response = await http.get(Uri.parse(uri));
       setState(() {
         recod = json.decode(response.body);
@@ -177,7 +178,7 @@ class _itemPageDetailState extends State<itemPageDetail> {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: NetworkImage(
-                        "http://192.168.1.6/login/upload${widget.foto}"))),
+                        "${fire.URL_API}/upload${widget.foto}"))),
           ),
         ),
         // Icon Widget

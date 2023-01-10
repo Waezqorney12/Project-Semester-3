@@ -12,6 +12,7 @@ import 'package:jaya_office/model/signup_model_body.dart';
 import 'package:jaya_office/palet%20ukuran/dimension.dart';
 import 'login.dart';
 import 'main.dart';
+import 'package:jaya_office/data/api/api.dart';
 
 class regis extends StatefulWidget {
   @override
@@ -108,8 +109,8 @@ class _regisState extends State<regis> {
   // }
 
   Future registar() async {
-    var url = Uri.http("192.168.1.6", '/login/register.php', {'q': '{http}'});
-    var response = await http.post(url, body: {
+    // var url = Uri.http("192.168.47.91", '/login/register.php', {'q': '{http}'});
+    var response = await  http.post(Uri.parse("${fire.URL_API}/register.php"), body: {
       "userid": idRegis.text,
       "username": usernamaRegis.text,
       "password": passwordRegis.text,
